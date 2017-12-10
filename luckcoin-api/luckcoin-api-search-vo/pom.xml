@@ -2,8 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>cn.kidjoker</groupId>
-    <artifactId>luckcoin-service</artifactId>
+    <artifactId>luckcoin-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>luckcoin-service-search-service</artifactId>
+  <artifactId>luckcoin-api-search-vo</artifactId>
 </project>

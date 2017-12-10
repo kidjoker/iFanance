@@ -8,7 +8,7 @@
   <artifactId>luckcoin-api</artifactId>
   <packaging>pom</packaging>
   <modules>
-  	<module>luckcoin-api-vo</module>
-  	<module>luckcoin-api-action</module>
+  	<module>luckcoin-api-search-vo</module>
+  	<module>luckcoin-api-search-action</module>
   </modules>
 </project>
