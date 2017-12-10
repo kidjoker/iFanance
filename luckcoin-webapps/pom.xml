@@ -7,4 +7,11 @@
   </parent>
   <artifactId>luckcoin-webapps</artifactId>
   <packaging>war</packaging>
+  <dependencies>
+  	<dependency>
+  		<groupId>cn.kidjoker</groupId>
+  		<artifactId>luckcoin-api-search-action</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
