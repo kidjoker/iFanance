@@ -32,10 +32,10 @@
         <property name="mapperLocations" value="classpath*:META-INF/mapper/*Mapper.xml"></property>  
     </bean>  
   
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+    <!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
         <property name="basePackage" value="com.cn.hnust.dao" />  
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
-    </bean>  
+    </bean>   -->
   
     <bean id="transactionManager"  
         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  

@@ -2,7 +2,14 @@ package cn.kidjoker.search.service.impl;
 
 import org.springframework.stereotype.Service;
 
-@Service
-public class SearchServiceImpl {
+import cn.kidjoker.search.service.SearchService;
 
+@Service
+public class SearchServiceImpl implements SearchService {
+
+	@Override
+	public void showMessage() {
+		System.out.println("123");
+	}
+	
 }
