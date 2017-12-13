@@ -13,11 +13,11 @@
  *
  * ================================================================
  *  创建人: jinzhijie
- *	创建时间: 2017年12月13日 下午1:30:29
+ *	创建时间: 2017年12月13日 下午3:18:36
  */
-package cn.kidjoker.search.service;
+package cn.kidjoker.search.dao;
 
-import cn.kidjoker.common.service.IBaseService;
+import cn.kidjoker.common.dao.IMybatisBaseDao;
 import cn.kidjoker.search.model.SearchPO;
 
 /**
@@ -25,8 +25,8 @@ import cn.kidjoker.search.model.SearchPO;
  * 
  * </P>
  * @author jinzhijie
- * @creatTime 2017年12月13日 下午1:30:29
+ * @creatTime 2017年12月13日 下午3:18:36
  */
-public interface SearchService extends IBaseService<SearchPO, Long>{
+public interface SearchDao extends IMybatisBaseDao<SearchPO, Long> {
 
 }

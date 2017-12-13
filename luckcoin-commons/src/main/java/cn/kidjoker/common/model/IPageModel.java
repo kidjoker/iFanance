@@ -13,20 +13,25 @@
  *
  * ================================================================
  *  创建人: jinzhijie
- *	创建时间: 2017年12月13日 下午1:30:29
+ *	创建时间: 2017年12月13日 下午2:41:26
  */
-package cn.kidjoker.search.service;
+package cn.kidjoker.common.model;
 
-import cn.kidjoker.common.service.IBaseService;
-import cn.kidjoker.search.model.SearchPO;
+import java.util.List;
 
 /**
  * <p>
  * 
  * </P>
  * @author jinzhijie
- * @creatTime 2017年12月13日 下午1:30:29
+ * @creatTime 2017年12月13日 下午2:41:26
  */
-public interface SearchService extends IBaseService<SearchPO, Long>{
+public interface IPageModel<T> extends java.io.Serializable {
+	
+	public List<T> getDataList();
 
+	public int getTotalRecord();
+
+	public IPageQueryModel getPageQueryModel();
+	
 }

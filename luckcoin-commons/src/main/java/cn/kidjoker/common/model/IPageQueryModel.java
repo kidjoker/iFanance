@@ -13,20 +13,29 @@
  *
  * ================================================================
  *  创建人: jinzhijie
- *	创建时间: 2017年12月13日 下午1:30:29
+ *	创建时间: 2017年12月13日 下午2:42:41
  */
-package cn.kidjoker.search.service;
-
-import cn.kidjoker.common.service.IBaseService;
-import cn.kidjoker.search.model.SearchPO;
+package cn.kidjoker.common.model;
 
 /**
  * <p>
  * 
  * </P>
  * @author jinzhijie
- * @creatTime 2017年12月13日 下午1:30:29
+ * @creatTime 2017年12月13日 下午2:42:41
  */
-public interface SearchService extends IBaseService<SearchPO, Long>{
-
+public interface IPageQueryModel {
+	
+	public static String PAGE_QUERY_MODEL_TYPE_COMMOM="common";
+	
+	public static String PAGE_QUERY_MODEL_TYPE_DATATABLE="datatable";
+	
+	public int getStart();
+	
+	public int getLimit();
+	
+	public int getPage();
+	
+	public String getType();
+	
 }

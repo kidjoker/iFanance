@@ -1,1 +1,3 @@
 Manifest-Version: 1.0
+Mybatis-TypeHandlersPackage: cn.kidjoker.search.model.helper
+Mybatis-TypeAliasesPackage: cn.kidjoker.search.model

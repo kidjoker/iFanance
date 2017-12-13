@@ -6,4 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>luckcoin-service-search-service</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>cn.kidjoker</groupId>
+  		<artifactId>luckcoin-commons</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
