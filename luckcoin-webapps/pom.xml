@@ -18,5 +18,10 @@
   		<artifactId>luckcoin-config</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>cn.kidjoker</groupId>
+  		<artifactId>luckcoin-service-search-batch</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>

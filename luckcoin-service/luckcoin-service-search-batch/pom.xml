@@ -2,14 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>cn.kidjoker</groupId>
-    <artifactId>luckcoin</artifactId>
+    <artifactId>luckcoin-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>luckcoin-service</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>luckcoin-service-search-service</module>
-  	<module>luckcoin-service-search-service-impl</module>
-  	<module>luckcoin-service-search-batch</module>
-  </modules>
+  <artifactId>luckcoin-service-search-batch</artifactId>
 </project>

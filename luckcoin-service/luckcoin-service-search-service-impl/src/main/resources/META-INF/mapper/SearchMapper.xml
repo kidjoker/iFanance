@@ -36,33 +36,33 @@
         parameterType="HashMap">
         SELECT
         <include refid="selectColumns" />
-        FROM search A
+        FROM Search A
         <include refid="selectWhere" />
         <include refid="pageLimit" />
     </select>
     
     <select id="selectCount" resultType="Integer" parameterType="HashMap">
-        SELECT COUNT(A.id) FROM search A
+        SELECT COUNT(A.id) FROM Search A
         <include refid="selectWhere" />
     </select>
 
     <select id="selectOne" resultMap="SearchMap" parameterType="HashMap">
         SELECT
         <include refid="selectColumns" />
-        FROM search A
+        FROM Search A
         <include refid="selectWhere" />
     </select>
     
     <select id="selectById"  resultMap="SearchMap" parameterType="string">
         SELECT
         <include refid="selectColumns" />
-        FROM search A
+        FROM Search A
         WHERE A.id = #{id,javaType=Long}
     </select>
 
     <insert id="insert" parameterType="cn.kidjoker.search.model.SearchPO">
     <![CDATA[
-        INSERT INTO search
+        INSERT INTO Search
         ( 
 	        variable1,
 	        variable2,
