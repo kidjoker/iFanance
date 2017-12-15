@@ -26,7 +26,8 @@
 		<module>luckcoin-api</module>
 		<module>luckcoin-service</module>
 		<module>luckcoin-webapps</module>
-		
+
+		<module>luckcoin-datasource</module>
 	</modules>
 	
 	<properties>
