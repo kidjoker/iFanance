@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.kidjoker.batch.service.LuckcoinBatchSearchService;
-import cn.kidjoker.search.service.SearchService;
 
 /**
  * <p>
@@ -34,8 +33,6 @@ import cn.kidjoker.search.service.SearchService;
 public class LuckcoinBatchSearchServiceImpl implements LuckcoinBatchSearchService {
 	
 	@Autowired
-	private SearchService searchService;
-	
 	@Override
 	public void execute() throws Exception {
 		System.out.println("123");

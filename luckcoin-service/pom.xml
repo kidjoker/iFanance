@@ -8,8 +8,8 @@
   <artifactId>luckcoin-service</artifactId>
   <packaging>pom</packaging>
   <modules>
-  	<module>luckcoin-service-search-service</module>
-  	<module>luckcoin-service-search-service-impl</module>
+  	<module>luckcoin-service-core-service</module>
+  	<module>luckcoin-service-core-service-impl</module>
   	<module>luckcoin-service-search-batch</module>
   	<module>luckcoin-service-parse-service</module>
   </modules>

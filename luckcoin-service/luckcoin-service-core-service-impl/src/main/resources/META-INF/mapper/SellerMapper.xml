@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kidjoker.core.dao.SellerDao">
+
+    <resultMap id="SellerMap" type="cn.kidjoker.core.model.Seller">
+        <id column="sellerId" property="sellerId" javaType="string" />
+        <result column="sellerUsername" property="sellerUsername" javaType="string" />
+        <result column="tradeCount" property="tradeCount" javaType="int" />
+        <result column="favorableRate" property="favorableRate" javaType="int" />
+        <result column="supplyPrice" property="supplyPrice" javaType="int" />
+        <result column="payMethod" property="payMethod" javaType="string" />
+        <result column="priceMax" property="priceMax" javaType="int" />
+        <result column="priceMin" property="priceMin" javaType="int" />
+    </resultMap>
+
+    <sql id="selectColumns">
+        A.sellerId, A.sellerUsername, A.tradeCount, A.favorableRate, A.supplyPrice, A.payMethod,A.priceMax,A.priceMin
+    </sql>
+
+    <sql id="selectWhere">
+        <where>
+            <if test="sellerId != null and sellerId != ''">
+                AND A.sellerId = #{sellerId, jdbcType=VARCHAR}
+            </if>
+            <if test="sellerUsername != null and sellerUsername != ''">
+                AND A.sellerUsername = #{sellerUsername, jdbcType=VARCHAR}
+            </if>
+            <if test="tradeCount != null and tradeCount != ''">
+                AND A.tradeCount = #{tradeCount, jdbcType=INTEGER}
+            </if>
+            <if test="favorableRate != null and favorableRate != ''">
+                AND A.favorableRate = #{favorableRate, jdbcType=INTEGER}
+            </if>
+            <if test="supplyPrice != null and supplyPrice != ''">
+                AND A.supplyPrice = #{supplyPrice, jdbcType=INTEGER}
+            </if>
+            <if test="payMethod != null and payMethod != ''">
+                AND A.payMethod = #{payMethod, jdbcType=VARCHAR}
+            </if>
+            <if test="priceMax != null and priceMax != ''">
+                AND A.priceMax = #{priceMax, jdbcType=INTEGER}
+            </if>
+            <if test="priceMin != null and priceMin != ''">
+                AND A.priceMin = #{priceMin, jdbcType=INTEGER}
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="pageLimit">
+        <if test="start !=null and limit != null">
+            LIMIT #{start},#{limit}
+        </if>
+    </sql>
+    
+    <select id="selectList" resultMap="SellerMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Seller A
+        <include refid="selectWhere" />
+        <include refid="pageLimit" />
+    </select>
+    
+    <select id="selectCount" resultType="Integer" parameterType="HashMap">
+        SELECT COUNT(A.sellerId) FROM Seller A
+        <include refid="selectWhere" />
+    </select>
+
+    <select id="selectOne" resultMap="SearchMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Seller A
+        <include refid="selectWhere" />
+    </select>
+    
+    <select id="selectById"  resultMap="SearchMap" parameterType="string">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Seller A
+        WHERE A.sellerId = #{sellerId,javaType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="cn.kidjoker.core.model.Seller">
+    <![CDATA[
+        INSERT INTO Seller
+        ( 
+	        sellerId, 
+	        sellerUsername, 
+	        tradeCount, 
+	        favorableRate, 
+	        supplyPrice, 
+	        payMethod,
+	        priceMax,
+	        priceMin
+        )
+        VALUES(
+            #{sellerId,jdbcType=VARCHAR},
+            #{sellerUsername,jdbcType=VARCHAR},
+            #{tradeCount,jdbcType=INTEGER},
+            #{favorableRate,jdbcType=INTEGER},
+            #{supplyPrice,jdbcType=INTEGER},
+            #{payMethod,jdbcType=VARCHAR},
+            #{priceMax,jdbcType=INTEGER},
+            #{priceMin,jdbcType=INTEGER}
+        )
+    ]]>
+    </insert>
+  
+</mapper>
