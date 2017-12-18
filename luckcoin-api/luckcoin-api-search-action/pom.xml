@@ -12,5 +12,10 @@
   		<artifactId>luckcoin-api-search-vo</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>cn.kidjoker</groupId>
+  		<artifactId>luckcoin-service-core-service-impl</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>

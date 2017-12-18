@@ -35,33 +35,33 @@
     <select id="selectList" resultMap="CoinTypeMap" parameterType="HashMap">
         SELECT
         <include refid="selectColumns" />
-        FROM CoinType A
+        FROM Coin_Type A
         <include refid="selectWhere" />
         <include refid="pageLimit" />
     </select>
     
     <select id="selectCount" resultType="Integer" parameterType="HashMap">
-        SELECT COUNT(A.coinTypeId) FROM CoinType A
+        SELECT COUNT(A.coinTypeId) FROM Coin_Type A
         <include refid="selectWhere" />
     </select>
 
     <select id="selectOne" resultMap="CoinTypeMap" parameterType="HashMap">
         SELECT
         <include refid="selectColumns" />
-        FROM CoinType A
+        FROM Coin_Type A
         <include refid="selectWhere" />
     </select>
     
     <select id="selectById"  resultMap="CoinTypeMap" parameterType="string">
         SELECT
         <include refid="selectColumns" />
-        FROM CoinType A
-        WHERE A.coinTypeId = #{coinTypeId,javaType=VARCHAR}
+        FROM Coin_Type A
+        WHERE A.coinTypeId = #{coinTypeId,javaType=string}
     </select>
 
     <insert id="insert" parameterType="cn.kidjoker.core.model.CoinType">
     <![CDATA[
-        INSERT INTO CoinType
+        INSERT INTO Coin_Type
         ( 
 	         A.coinTypeId,
 	         A.nameCh,
@@ -74,5 +74,23 @@
         )
     ]]>
     </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.CoinType">
+        UPDATE Coin_Type
+        <set>
+            <if test="nameCh != null and nameCh != ''">
+                nameCh=#{nameCh,jdbcType=VARCHAR},
+            </if>
+            <if test="nameEn != null and nameEn != ''">
+                nameEn=#{nameEn,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE coinTypeId = #{coinTypeId,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from Coin_Type where coinTypeId= #{coinTypeId}
+    </delete>
   
 </mapper>

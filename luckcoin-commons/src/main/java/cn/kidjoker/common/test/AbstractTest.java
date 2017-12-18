@@ -18,7 +18,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
  *
  * @date 2017年12月17日 
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(JUnit4ClassRunner.class)
 @TransactionConfiguration(transactionManager = "txManager", defaultRollback = false)
 @ContextConfiguration(locations = { "classpath*:META-INF/spring/*.xml" }) 
 public class AbstractTest implements ApplicationContextAware {

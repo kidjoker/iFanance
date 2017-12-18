@@ -71,7 +71,7 @@
         SELECT
         <include refid="selectColumns" />
         FROM Wallet A
-        WHERE A.acctNo = #{acctNo,javaType=VARCHAR}
+        WHERE A.acctNo = #{acctNo,javaType=string}
     </select>
 
     <insert id="insert" parameterType="cn.kidjoker.core.model.Wallet">
@@ -85,9 +85,9 @@
 	        walletType, 
 	        currency, 
 	        totalAmount,
-        		frozenAmount, 
-        		accountStatus, 
-        		createTime
+        	frozenAmount, 
+        	accountStatus, 
+        	createTime
         )
         VALUES(
             #{acctNo,jdbcType=VARCHAR},
@@ -103,5 +103,20 @@
         )
     ]]>
     </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.Wallet">
+        UPDATE Wallet
+        <set>
+            <if test="walletHistorySeq != null and walletHistorySeq != ''">
+                walletHistorySeq=#{walletHistorySeq,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE acctNo = #{acctNo,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from Wallet where acctNo= #{acctNo}
+    </delete>
   
 </mapper>

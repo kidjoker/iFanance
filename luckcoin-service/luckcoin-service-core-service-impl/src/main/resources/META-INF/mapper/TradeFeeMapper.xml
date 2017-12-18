@@ -62,7 +62,7 @@
         SELECT
         <include refid="selectColumns" />
         FROM TradeFee A
-        WHERE A.tradeFeeSeq = #{tradeFeeSeq,javaType=VARCHAR}
+        WHERE A.tradeFeeSeq = #{tradeFeeSeq,javaType=string}
     </select>
 
     <insert id="insert" parameterType="cn.kidjoker.core.model.TradeFee">
@@ -76,9 +76,9 @@
 	        endAmount, 
 	        fixedAmount, 
 	        feeRate,
-        		singleMinFee, 
-        		singleMaxFee, 
-        		createTime
+        	singleMinFee, 
+        	singleMaxFee, 
+        	createTime
         )
         VALUES(
             #{tradeFeeSeq,jdbcType=VARCHAR},
@@ -94,5 +94,26 @@
         )
     ]]>
     </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.TradeFee">
+        UPDATE TradeFee
+        <set>
+            <if test="tradeType != null and tradeType != ''">
+                tradeType=#{tradeType,jdbcType=VARCHAR},
+            </if>
+            <if test="currency != null and currency != ''">
+                currency=#{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="favorableRate != null and favorableRate != ''">
+                favorableRate=#{favorableRate,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE tradeFeeSeq = #{tradeFeeSeq,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from TradeFee where tradeFeeSeq= #{tradeFeeSeq}
+    </delete>
   
 </mapper>

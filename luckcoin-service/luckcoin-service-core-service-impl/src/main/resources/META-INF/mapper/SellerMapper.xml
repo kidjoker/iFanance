@@ -68,18 +68,18 @@
         <include refid="selectWhere" />
     </select>
 
-    <select id="selectOne" resultMap="SearchMap" parameterType="HashMap">
+    <select id="selectOne" resultMap="SellerMap" parameterType="HashMap">
         SELECT
         <include refid="selectColumns" />
         FROM Seller A
         <include refid="selectWhere" />
     </select>
     
-    <select id="selectById"  resultMap="SearchMap" parameterType="string">
+    <select id="selectById"  resultMap="SellerMap" parameterType="string">
         SELECT
         <include refid="selectColumns" />
         FROM Seller A
-        WHERE A.sellerId = #{sellerId,javaType=VARCHAR}
+        WHERE A.sellerId = #{sellerId,javaType=string}
     </select>
 
     <insert id="insert" parameterType="cn.kidjoker.core.model.Seller">
@@ -107,5 +107,26 @@
         )
     ]]>
     </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.Seller">
+        UPDATE Seller
+        <set>
+            <if test="sellerUsername != null and sellerUsername != ''">
+                sellerUsername=#{sellerUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeCount != null and tradeCount != ''">
+                tradeCount=#{tradeCount,jdbcType=VARCHAR},
+            </if>
+            <if test="favorableRate != null and favorableRate != ''">
+                favorableRate=#{favorableRate,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE sellerId = #{sellerId,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from Seller where sellerId= #{sellerId}
+    </delete>
   
 </mapper>

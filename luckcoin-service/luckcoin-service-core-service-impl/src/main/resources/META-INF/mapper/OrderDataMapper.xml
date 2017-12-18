@@ -68,33 +68,33 @@
     <select id="selectList" resultMap="OrderDataMap" parameterType="HashMap">
         SELECT
         <include refid="selectColumns" />
-        FROM OrderData A
+        FROM Order_Data A
         <include refid="selectWhere" />
         <include refid="pageLimit" />
     </select>
     
     <select id="selectCount" resultType="Integer" parameterType="HashMap">
-        SELECT COUNT(A.orderNo) FROM OrderData A
+        SELECT COUNT(A.orderNo) FROM Order_Data A
         <include refid="selectWhere" />
     </select>
 
     <select id="selectOne" resultMap="OrderDataMap" parameterType="HashMap">
         SELECT
         <include refid="selectColumns" />
-        FROM orderNo A
+        FROM Order_Data A
         <include refid="selectWhere" />
     </select>
     
     <select id="selectById"  resultMap="OrderDataMap" parameterType="string">
         SELECT
         <include refid="selectColumns" />
-        FROM orderNo A
-        WHERE A.orderNo = #{orderNo,javaType=VARCHAR}
+        FROM Order_Data A
+        WHERE A.orderNo = #{orderNo,javaType=string}
     </select>
 
     <insert id="insert" parameterType="cn.kidjoker.core.model.OrderData">
     <![CDATA[
-        INSERT INTO orderNo
+        INSERT INTO Order_Data
         ( 
 	        orderNo, 
 	        adId, 
@@ -102,15 +102,15 @@
 	        tradeFeeSeq, 
 	        tradeType, 
 	        tradeCurrency,
-        		initiatorUserNo, 
-        		initiatorInfo, 
-        		receiverUserNo, 
-        		receiverInfo, 
-        		tradeAmount, 
-        		tradeCurrency,
-        		payMethod, 
-        		tradeStatus, 
-        		tradeTime
+       		initiatorUserNo, 
+       		initiatorInfo, 
+       		receiverUserNo, 
+       		receiverInfo, 
+       		tradeAmount, 
+       		tradeCurrency,
+       		payMethod, 
+       		tradeStatus, 
+       		tradeTime
         )
         VALUES(
             #{orderNo,jdbcType=VARCHAR},
@@ -131,5 +131,20 @@
         )
     ]]>
     </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.OrderData">
+        UPDATE Order_Data
+        <set>
+            <if test="tradeStatus != null and tradeStatus != ''">
+                tradeStatus=#{tradeStatus,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE orderNo = #{orderNo,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from Order_Data where orderNo= #{orderNo}
+    </delete>
   
 </mapper>

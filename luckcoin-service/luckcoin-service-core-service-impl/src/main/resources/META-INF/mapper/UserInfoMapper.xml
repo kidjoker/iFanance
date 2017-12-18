@@ -63,7 +63,7 @@
         SELECT
         <include refid="selectColumns" />
         FROM UserInfo A
-        WHERE A.userNo = #{userNo,javaType=VARCHAR}
+        WHERE A.userNo = #{userNo,javaType=string}
     </select>
 
     <insert id="insert" parameterType="cn.kidjoker.core.model.UserInfo">
@@ -93,5 +93,29 @@
         )
     ]]>
     </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.UserInfo">
+        UPDATE UserInfo
+        <set>
+            <if test="acctNo != null and acctNo != ''">
+                acctNo=#{acctNo,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile=#{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="payPwd != null and payPwd != ''">
+                payPwd=#{payPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="currentStatus != null and currentStatus != ''">
+                currentStatus=#{currentStatus,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE userNo = #{userNo,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from UserInfo where userNo= #{userNo}
+    </delete>
   
 </mapper>
