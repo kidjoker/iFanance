@@ -74,14 +74,14 @@
         INSERT INTO Advertisement
         ( 
 	        adId,
-        		adName,
-        		sellerId,
-        		coinTypeId,
-        		adURL,
-        		adClickNum,
-        		adSort,
+       		adName,
+       		sellerId,
+       		coinTypeId,
+       		adURL,
+       		adClickNum,
+       		adSort,
        		adStatus,
-        		createTime
+       		createTime
         )
         VALUES(
             #{adId,jdbcType=VARCHAR},
@@ -96,5 +96,32 @@
         )
     ]]>
     </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.Advertisement">
+        UPDATE Advertisement
+        <set>
+            <if test="adName != null and adName != ''">
+                adName=#{adName,jdbcType=VARCHAR},
+            </if>
+            <if test="adURL != null and adURL != ''">
+                adURL=#{adURL,jdbcType=VARCHAR},
+            </if>
+            <if test="adClickNum != null and adClickNum != ''">
+                adClickNum=#{adClickNum,jdbcType=VARCHAR},
+            </if>
+            <if test="adSort != null and adSort != ''">
+                adSort=#{adSort,jdbcType=VARCHAR},
+            </if>
+            <if test="adStatus != null and adStatus != ''">
+                adStatus=#{adStatus,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE adId = #{adId,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from Advertisement where adId= #{adId}
+    </delete>
   
 </mapper>

@@ -70,22 +70,22 @@
         SELECT
         <include refid="selectColumns" />
         FROM WalletHistory A
-        WHERE A.walletHistorySeq = #{walletHistorySeq,javaType=VARCHAR}
+        WHERE A.walletHistorySeq = #{walletHistorySeq,javaType=string}
     </select>
 
-    <insert id="insert" parameterType="cn.kidjoker.search.model.SearchPO">
+    <insert id="insert" parameterType="cn.kidjoker.core.model.WalletHistory">
     <![CDATA[
         INSERT INTO WalletHistory
         ( 
-	        A.walletHistorySeq, 
-	        A.acctNo, 
-	        A.fundFlow, 
-	        A.tradeAmount, 
-	        A.tradeAbstract, 
-	        A.tradeNo,
-        		A.tradeType, 
-        		A.acctBalance, 
-        		A.createTime
+	        walletHistorySeq, 
+	        acctNo, 
+	        fundFlow, 
+	        tradeAmount, 
+	        tradeAbstract, 
+	        tradeNo,
+        	tradeType, 
+        	acctBalance, 
+        	createTime
         )
         VALUES(
             #{walletHistorySeq,jdbcType=VARCHAR},
@@ -100,5 +100,20 @@
         )
     ]]>
     </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.WalletHistory">
+        UPDATE WalletHistory
+        <set>
+            <if test="tradeType != null and tradeType != ''">
+                tradeType=#{tradeType,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE walletHistorySeq = #{walletHistorySeq,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from WalletHistory where walletHistorySeq= #{walletHistorySeq}
+    </delete>
   
 </mapper>
