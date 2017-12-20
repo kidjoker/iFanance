@@ -5,7 +5,8 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath*:META-INF/spring/*.xml
+            classpath*:META-INF/spring/*.xml,
+            classpath*:META-INF/spring/*.properties
         </param-value>  
     </context-param>
     

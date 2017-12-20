@@ -5,5 +5,12 @@
     <artifactId>luckcoin-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>luckcoin-service-search-batch</artifactId>
+  <artifactId>luckcoin-service-batch</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>cn.kidjoker</groupId>
+  		<artifactId>luckcoin-service-search-Data-service</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

@@ -3,18 +3,13 @@
  */
 package cn.kidjoker.core.test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.kidjoker.common.test.AbstractTest;
-import cn.kidjoker.core.model.Advertisement;
 import cn.kidjoker.core.model.CoinType;
-import cn.kidjoker.core.service.AdvertisementService;
 import cn.kidjoker.core.service.CoinTypeService;
 
 /**

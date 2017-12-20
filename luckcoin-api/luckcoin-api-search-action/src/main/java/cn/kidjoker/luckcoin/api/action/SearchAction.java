@@ -13,7 +13,7 @@ public class SearchAction {
 	
 	@ResponseBody
 	@RequestMapping(value="/query")
-	public void test() {
+	public void query() {
 		System.out.println("success");
 	}
 }
