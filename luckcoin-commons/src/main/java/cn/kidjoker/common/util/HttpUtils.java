@@ -111,7 +111,7 @@ public class HttpUtils {
 			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
 			
 			TrustManager[] tm = {new HttpsTrustManager()};
-			SSLContext sslContext = SSLContext.getInstance("TLS");
+			SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
 			sslContext.init(null, tm, new SecureRandom());
 			con.setSSLSocketFactory(sslContext.getSocketFactory());
 			con.setHostnameVerifier(new HostnameVerifier() {
