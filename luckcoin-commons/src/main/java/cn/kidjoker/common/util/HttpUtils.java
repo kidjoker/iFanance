@@ -106,15 +106,14 @@ public class HttpUtils {
 	public static String httpsRequest(String requestUrl, String requestMethod, String outputStr) {
 		
 		try {
-			TrustManager[] tm = {new HttpsTrustManager()};
-			SSLContext sslContext = SSLContext.getInstance("SSL", "SunJssE");
-			sslContext.init(null, tm, new SecureRandom());
 			
-			SSLSocketFactory ssf = sslContext.getSocketFactory();
-			
-			//创建连接吗,配置请求属性
 			URL url = new URL(requestUrl);
 			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+			
+			TrustManager[] tm = {new HttpsTrustManager()};
+			SSLContext sslContext = SSLContext.getInstance("TLS");
+			sslContext.init(null, tm, new SecureRandom());
+			con.setSSLSocketFactory(sslContext.getSocketFactory());
 			con.setHostnameVerifier(new HostnameVerifier() {
 				
 				@Override
@@ -122,11 +121,10 @@ public class HttpUtils {
 					return true;
 				}
 			});
-			con.setSSLSocketFactory(ssf);
 			con.setDoOutput(true);
 			con.setDoInput(true);
 			con.setUseCaches(false);  //不使用缓存
-			//设置请求方式
+			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 			con.setRequestMethod(requestMethod);
 			con.setConnectTimeout(5*1000);
 			con.setReadTimeout(5*1000);
@@ -185,6 +183,7 @@ public class HttpUtils {
 			con.setUseCaches(false); //不使用缓存
 			// 设置请求方式（GET/POST）
 			con.setRequestMethod(requestMethod);
+			con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 			
 			// 当outputStr不为null时向输出流写数据
 			if ("POST".equals(requestMethod.toUpperCase()) && null != outputStr) {

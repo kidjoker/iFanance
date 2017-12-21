@@ -29,8 +29,6 @@ public class HttpsTrustManager implements X509TrustManager {
 	@Override
 	public void checkServerTrusted(X509Certificate[] arg0, String arg1)
 			throws CertificateException {
-		
-		System.err.println("begin check server trust...");
 
 	}
 

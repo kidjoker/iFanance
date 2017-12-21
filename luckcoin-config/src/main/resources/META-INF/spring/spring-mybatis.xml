@@ -10,7 +10,7 @@
     <!-- 引入配置文件 -->  
     <bean id="propertyConfigurer"  
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
-        <property name="location" value="classpath:META-INF/spring/jdbc.properties" />  
+        <property name="location" value="classpath:META-INF/config/jdbc.properties" />  
     </bean>  
   
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"  

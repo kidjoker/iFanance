@@ -1,6 +1,5 @@
 package cn.kidjoker.search.data.service.impl;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -30,10 +29,7 @@ public class SearchDataServiceImpl implements SearchDataService {
 	@Override
 	public Map<String, String> searchData(String requestUrl, Map<String, String> params) {
 		
-		params = iClientService.sendAndReceive(params, requestUrl);
-		System.out.println(params);
-		
-		return params;
+		return iClientService.sendAndReceive(params, requestUrl);
 	}
 
 }

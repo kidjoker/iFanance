@@ -21,7 +21,7 @@ public class ClientService implements IClientService {
 	@Override
 	public Map<String, String> sendAndReceive(Map<String, String> params, String requestUrl) {
 		
-		String jsonStr = this.send(params, requestUrl);
+		String jsonStr = this.sendPost(params, requestUrl);
 		
 		@SuppressWarnings("unchecked")
 		Map<String, String> retMap = JacksonUtils.getObjectFromJsonStr(jsonStr, Map.class);
@@ -32,10 +32,22 @@ public class ClientService implements IClientService {
 	}
 	
 	@SuppressWarnings("unused")
-	private String send(Map<String,String> params,String requestUrl) {
+	private String sendGet(Map<String,String> params,String requestUrl) {
 		
 		logger.info("请求参数为:->{};请求接口->[{}]", new Object[] { params, requestUrl });
 		String jsonStr = HttpUtils.httpsGet(requestUrl, params);
+		if (null == jsonStr) {
+			logger.error("系统调用错误");
+		}
+		logger.info("内部系统请求结束,响应参数为:->{};请求接口->[{}]", new Object[] { jsonStr, requestUrl });
+		return jsonStr;
+	}
+	
+	@SuppressWarnings("unused")
+	private String sendPost(Map<String,String> params,String requestUrl) {
+		
+		logger.info("请求参数为:->{};请求接口->[{}]", new Object[] { params, requestUrl });
+		String jsonStr = HttpUtils.httpsPost(requestUrl, params);
 		if (null == jsonStr) {
 			logger.error("系统调用错误");
 		}
