@@ -21,7 +21,7 @@ public class ClientService implements IClientService {
 	@Override
 	public Map<String, String> sendAndReceive(Map<String, String> params, String requestUrl) {
 		
-		String jsonStr = this.sendPost(params, requestUrl);
+		String jsonStr = this.sendGet(params, requestUrl);
 		
 		@SuppressWarnings("unchecked")
 		Map<String, String> retMap = JacksonUtils.getObjectFromJsonStr(jsonStr, Map.class);

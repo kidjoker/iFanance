@@ -7,8 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import cn.kidjoker.common.util.IClientService;
 import cn.kidjoker.search.data.service.SearchDataService;
+import cn.kidjoker.search.data.vo.SearchDataBo;
 
 /**
  *
@@ -29,7 +32,9 @@ public class SearchDataServiceImpl implements SearchDataService {
 	@Override
 	public Map<String, String> searchData(String requestUrl, Map<String, String> params) {
 		
-		return iClientService.sendAndReceive(params, requestUrl);
+		Map<String, String> retMap = iClientService.sendAndReceive(params, requestUrl);
+		
+		return null;
 	}
 
 }

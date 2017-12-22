@@ -1,5 +1,6 @@
 package cn.kidjoker.search.data.test;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,17 +23,16 @@ public class SearchDataTest extends AbstractTest {
 	private SearchDataService searchDataService;
 	
 	@Test
-	public void testSearchData() {
+	@SuppressWarnings("unused")
+	public void testSearchData() throws IOException {
 		
-		String hostUrl = "https://www.okex.com/api/v1";
-		
+		String hostUrl = "https://www.okcoin.com/api/v1";
 		String serviceName = "/ticker";
-		
 		String requestUrl = hostUrl + serviceName + ".do";
 		
 		Map<String, String> param = new HashMap<>();
-		param.put("symbol", "pro_eth");
+		param.put("symbol", "btc_usd");
 		
-		System.out.println(searchDataService.searchData(requestUrl, param));
+		Map<String, String> retMap = searchDataService.searchData(requestUrl, param);
 	}
 }

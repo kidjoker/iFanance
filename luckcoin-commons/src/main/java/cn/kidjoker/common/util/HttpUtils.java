@@ -107,20 +107,18 @@ public class HttpUtils {
 		
 		try {
 			
-			URL url = new URL(requestUrl);
-			HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+			if(requestMethod.equals("GET")) {
+				requestUrl = requestUrl + "?" + outputStr;
+			}
 			
+			URL connUrl = new URL(requestUrl);
+			HttpsURLConnection con = (HttpsURLConnection) connUrl.openConnection();
+
 			TrustManager[] tm = {new HttpsTrustManager()};
-			SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+			SSLContext sslContext = SSLContext.getInstance("SSL","SunJSSE");
 			sslContext.init(null, tm, new SecureRandom());
 			con.setSSLSocketFactory(sslContext.getSocketFactory());
-			con.setHostnameVerifier(new HostnameVerifier() {
-				
-				@Override
-				public boolean verify(String hostname, SSLSession session) {
-					return true;
-				}
-			});
+			
 			con.setDoOutput(true);
 			con.setDoInput(true);
 			con.setUseCaches(false);  //不使用缓存
@@ -129,13 +127,20 @@ public class HttpUtils {
 			con.setConnectTimeout(5*1000);
 			con.setReadTimeout(5*1000);
 			
+			if(requestMethod.equals("GET")) {
+				con.connect();
+			}
 			
 			//当输出流不为null时向其输出请求参数(从本机流出即为输出流)
-			if(outputStr != null) {
-				OutputStream outputStream = con.getOutputStream();
-				outputStream.write(outputStr.getBytes(CHARSET));
-				outputStream.close();
+			else {
+				if(outputStr != null) {
+					
+					OutputStream outputStream = con.getOutputStream();
+					outputStream.write(outputStr.getBytes(CHARSET));
+					outputStream.close();
+				}
 			}
+			
 			
 			//从输入流读取响应数据
 			InputStream inputStream = con.getInputStream();
@@ -146,7 +151,7 @@ public class HttpUtils {
 			while((str = bufferedReader.readLine()) != null) {
 				buffer.append(str);
 			}
-			
+//			
 			//释放资源
 			bufferedReader.close();
 			inputStreamReader.close();
@@ -154,6 +159,7 @@ public class HttpUtils {
 			inputStream = null; //等待GC来回收内存空间
 			con.disconnect();
 			return buffer.toString();
+			
 		}
 		catch (ConnectException ce) {
 			log.error("连接超时: {}", ce);

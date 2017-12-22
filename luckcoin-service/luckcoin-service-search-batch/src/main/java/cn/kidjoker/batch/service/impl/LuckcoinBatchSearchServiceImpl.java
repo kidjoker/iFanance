@@ -40,19 +40,21 @@ public class LuckcoinBatchSearchServiceImpl implements LuckcoinBatchSearchServic
 	@Autowired
 	private SearchDataService searchDataService;
 	
-	@Value(value="${luckcoin.search.data.url}")
-	private String requestUrl;
+	private String hostUrl = "https://www.okcoin.com/api/v1";
 	
-	private String[] coinType = {"ltc_btc", "eth_btc", "etc_btc", "bch_btc", "bt1_btc", "bt2_btc", "btg_btc", "qtum_btc", "hsr_btc", "neo_btc", "gas_btc",
-			"btc_usdt", "eth_usdt", "ltc_usdt", "etc_usdt", "bch_usdt",
-			"etc_eth", "qtum_usdt", "hsr_usdt", "neo_usdt", "gas_usdt"};
+	private String serviceName = "/ticker";
+	
+	private String[] coinType = {"btc_usd"};
 	
 	@Override
 	public void execute() throws Exception {
+		
+		String requestUrl = hostUrl + serviceName + ".do";
+		
 		Map<String, String> param = new HashMap<>();
 		param.put("symbol", coinType[0]);
 		
-		searchDataService.searchData(requestUrl, param);
+		Map<String, String> retMap = searchDataService.searchData(requestUrl, param);
 	}
 	
 }

@@ -12,5 +12,6 @@
   	<module>luckcoin-service-core-service-impl</module>
   	<module>luckcoin-service-search-batch</module>
   	<module>luckcoin-service-parse-service</module>
+  	<module>luckcoin-service-search-Data-service</module>
   </modules>
 </project>
