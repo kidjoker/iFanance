@@ -11,7 +11,7 @@
     <bean id="LuckcoinSearchBatchJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="LuckcoinSearchBatchJobScheduler" />
         <property name="cronExpression"
-            value="${LuckcoinSearchBatchJob.cornExpression:0/30 * * * * ?}" />
+            value="${LuckcoinSearchBatchJob.cornExpression:0/120 * * * * ?}" />
     </bean>
 
     <bean id="SchedulerFactory"

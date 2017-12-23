@@ -1,5 +1,6 @@
 package cn.kidjoker.search.data.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -10,8 +11,9 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cn.kidjoker.common.util.IClientService;
+import cn.kidjoker.common.util.MapToBeanUtils;
+import cn.kidjoker.search.data.bo.SearchDataBo;
 import cn.kidjoker.search.data.service.SearchDataService;
-import cn.kidjoker.search.data.vo.SearchDataBo;
 
 /**
  *
@@ -29,12 +31,15 @@ public class SearchDataServiceImpl implements SearchDataService {
 	private IClientService iClientService;
 	
 	
+	@SuppressWarnings("unused")
 	@Override
-	public Map<String, String> searchData(String requestUrl, Map<String, String> params) {
+	public SearchDataBo searchData(String requestUrl, Map<String, String> params) {
 		
 		Map<String, String> retMap = iClientService.sendAndReceive(params, requestUrl);
 		
-		return null;
+		SearchDataBo rawData = MapToBeanUtils.toBean(SearchDataBo.class, retMap);
+		
+		return rawData;
 	}
 
 }
