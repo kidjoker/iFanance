@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kidjoker.core.dao.WalletDao">
+
+    <resultMap id="WalletMap" type="cn.kidjoker.core.model.Wallet">
+        <id column="acctNo" property="acctNo" javaType="string" />
+        <result column="walletHistorySeq" property="walletHistorySeq" javaType="string" />
+        <result column="coinTypeId" property="coinTypeId" javaType="string" />
+        <result column="userNo" property="userNo" javaType="string" />
+        <result column="walletType" property="walletType" javaType="string" />
+        <result column="currency" property="currency" javaType="string" />
+        <result column="totalAmount" property="totalAmount" javaType="decimal" />
+        <result column="frozenAmount" property="frozenAmount" javaType="decimal" />
+        <result column="accountStatus" property="accountStatus" javaType= "string" />
+        <result column="createTime" property="createTime" javaType="Date" />
+        <result column="lastUpdateTime" property="updateTime" javaType="Date" />
+    </resultMap>
+
+    <sql id="selectColumns">
+        A.acctNo, A.walletHistorySeq, A.coinTypeId, A.userNo, A.walletType, A.currency, A.totalAmount,
+        A.frozenAmount, A.accountStatus, A.createTime, A.lastUpdateTime
+    </sql>
+
+    <sql id="selectWhere">
+        <where>
+            <if test="acctNo != null and acctNo != ''">
+                AND A.acctNo = #{acctNo, jdbcType=VARCHAR}
+            </if>
+            <if test="coinTypeId != null and coinTypeId != ''">
+                AND A.coinTypeId = #{coinTypeId, jdbcType=VARCHAR}
+            </if>
+            <if test="userNo != null and userNo != ''">
+                AND A.userNo = #{userNo, jdbcType=VARCHAR}
+            </if>
+            <if test="walletType != null and walletType != ''">
+                AND A.walletType = #{walletType, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="pageLimit">
+        <if test="start !=null and limit != null">
+            LIMIT #{start},#{limit}
+        </if>
+    </sql>
+    
+    <select id="selectList" resultMap="WalletMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Wallet A
+        <include refid="selectWhere" />
+        <include refid="pageLimit" />
+    </select>
+    
+    <select id="selectCount" resultType="Integer" parameterType="HashMap">
+        SELECT COUNT(A.acctNo) FROM Wallet A
+        <include refid="selectWhere" />
+    </select>
+
+    <select id="selectOne" resultMap="WalletMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Wallet A
+        <include refid="selectWhere" />
+    </select>
+    
+    <select id="selectById"  resultMap="WalletMap" parameterType="string">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Wallet A
+        WHERE A.acctNo = #{acctNo,javaType=string}
+    </select>
+
+    <insert id="insert" parameterType="cn.kidjoker.core.model.Wallet">
+    <![CDATA[
+        INSERT INTO Wallet
+        ( 
+	        acctNo, 
+	        walletHistorySeq, 
+	        coinTypeId, 
+	        userNo, 
+	        walletType, 
+	        currency, 
+	        totalAmount,
+        	frozenAmount, 
+        	accountStatus, 
+        	createTime
+        )
+        VALUES(
+            #{acctNo,jdbcType=VARCHAR},
+            #{walletHistorySeq,jdbcType=VARCHAR},
+            #{coinTypeId,jdbcType=VARCHAR},
+            #{userNo,jdbcType=VARCHAR},
+            #{walletType,jdbcType=VARCHAR},
+            #{currency,jdbcType=VARCHAR},
+            #{totalAmount,jdbcType=DECIMAL},
+            #{frozenAmount,jdbcType=DECIMAL},
+            #{accountStatus,jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP
+        )
+    ]]>
+    </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.Wallet">
+        UPDATE Wallet
+        <set>
+            <if test="walletHistorySeq != null and walletHistorySeq != ''">
+                walletHistorySeq=#{walletHistorySeq,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE acctNo = #{acctNo,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from Wallet where acctNo= #{acctNo}
+    </delete>
+  
+</mapper>

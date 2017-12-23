@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kidjoker.core.dao.TradeFeeDao">
+
+    <resultMap id="TradeFeeMap" type="cn.kidjoker.core.model.TradeFee">
+        <id column="tradeFeeSeq" property="tradeFeeSeq" javaType="string" />
+        <result column="tradeType" property="tradeType" javaType="string" />
+        <result column="currency" property="currency" javaType="string" />
+        <result column="startAmount" property="startAmount" javaType="decimal" />
+        <result column="endAmount" property="endAmount" javaType="decimal" />
+        <result column="fixedAmount" property="fixedAmount" javaType="decimal" />
+        <result column="feeRate" property="feeRate" javaType="decimal" />
+        <result column="singleMinFee" property="singleMinFee" javaType="decimal" />
+        <result column="singleMaxFee" property="singleMaxFee" javaType="decimal" />
+        <result column="createTime" property="createTime" javaType="Date" />
+        <result column="updateTime" property="updateTime" javaType="Date" />
+    </resultMap>
+
+    <sql id="selectColumns">
+        A.tradeFeeSeq, A.tradeType, A.currency, A.startAmount, A.endAmount, A.fixedAmount, A.feeRate,
+        A.singleMinFee, A.singleMaxFee, A.createTime, A.updateTime
+    </sql>
+
+    <sql id="selectWhere">
+        <where>
+            <if test="tradeType != null and tradeType != ''">
+                AND A.tradeType = #{tradeType, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="pageLimit">
+        <if test="start !=null and limit != null">
+            LIMIT #{start},#{limit}
+        </if>
+    </sql>
+    
+    <select id="selectList" resultMap="TradeFeeMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM TradeFee A
+        <include refid="selectWhere" />
+        <include refid="pageLimit" />
+    </select>
+    
+    <select id="selectCount" resultType="Integer" parameterType="HashMap">
+        SELECT COUNT(A.tradeFeeSeq) FROM TradeFee A
+        <include refid="selectWhere" />
+    </select>
+
+    <select id="selectOne" resultMap="TradeFeeMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM TradeFee A
+        <include refid="selectWhere" />
+    </select>
+    
+    <select id="selectById"  resultMap="TradeFeeMap" parameterType="string">
+        SELECT
+        <include refid="selectColumns" />
+        FROM TradeFee A
+        WHERE A.tradeFeeSeq = #{tradeFeeSeq,javaType=string}
+    </select>
+
+    <insert id="insert" parameterType="cn.kidjoker.core.model.TradeFee">
+    <![CDATA[
+        INSERT INTO TradeFee
+        ( 
+	        tradeFeeSeq, 
+	        tradeType, 
+	        currency, 
+	        startAmount, 
+	        endAmount, 
+	        fixedAmount, 
+	        feeRate,
+        	singleMinFee, 
+        	singleMaxFee, 
+        	createTime
+        )
+        VALUES(
+            #{tradeFeeSeq,jdbcType=VARCHAR},
+            #{tradeType,jdbcType=VARCHAR},
+            #{currency,jdbcType=VARCHAR},
+            #{startAmount,jdbcType=DECIMAL},
+            #{endAmount,jdbcType=DECIMAL},
+            #{fixedAmount,jdbcType=DECIMAL},
+            #{feeRate,jdbcType=DECIMAL},
+            #{singleMinFee,jdbcType=DECIMAL},
+            #{singleMaxFee,jdbcType=DECIMAL},
+            CURRENT_TIMESTAMP
+        )
+    ]]>
+    </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.TradeFee">
+        UPDATE TradeFee
+        <set>
+            <if test="tradeType != null and tradeType != ''">
+                tradeType=#{tradeType,jdbcType=VARCHAR},
+            </if>
+            <if test="currency != null and currency != ''">
+                currency=#{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="favorableRate != null and favorableRate != ''">
+                favorableRate=#{favorableRate,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE tradeFeeSeq = #{tradeFeeSeq,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from TradeFee where tradeFeeSeq= #{tradeFeeSeq}
+    </delete>
+  
+</mapper>

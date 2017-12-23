@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kidjoker.core.dao.CoinTypeDao">
+
+    <resultMap id="CoinTypeMap" type="cn.kidjoker.core.model.CoinType">
+        <id column="coinTypeId" property="coinTypeId" javaType="string" />
+        <result column="nameCh" property="nameCh" javaType="string" />
+        <result column="nameEn" property="nameEn" javaType="string" />
+    </resultMap>
+
+    <sql id="selectColumns">
+        A.coinTypeId, A.nameCh, A.nameEn
+    </sql>
+
+    <sql id="selectWhere">
+        <where>
+            <if test="nameCh != null and nameCh != ''">
+                AND A.nameCh = #{nameCh, jdbcType=VARCHAR}
+            </if>
+            <if test="nameEn != null and nameEn != ''">
+                AND A.nameEn = #{nameEn, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="pageLimit">
+        <if test="start !=null and limit != null">
+            LIMIT #{start},#{limit}
+        </if>
+    </sql>
+    
+    <select id="selectList" resultMap="CoinTypeMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Coin_Type A
+        <include refid="selectWhere" />
+        <include refid="pageLimit" />
+    </select>
+    
+    <select id="selectCount" resultType="Integer" parameterType="HashMap">
+        SELECT COUNT(A.coinTypeId) FROM Coin_Type A
+        <include refid="selectWhere" />
+    </select>
+
+    <select id="selectOne" resultMap="CoinTypeMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Coin_Type A
+        <include refid="selectWhere" />
+    </select>
+    
+    <select id="selectById"  resultMap="CoinTypeMap" parameterType="string">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Coin_Type A
+        WHERE A.coinTypeId = #{coinTypeId,javaType=string}
+    </select>
+
+    <insert id="insert" parameterType="cn.kidjoker.core.model.CoinType">
+    <![CDATA[
+        INSERT INTO Coin_Type
+        ( 
+	         A.coinTypeId,
+	         A.nameCh,
+	         A.nameEn
+        )
+        VALUES(
+            #{coinTypeId,jdbcType=VARCHAR},
+            #{nameCh,jdbcType=VARCHAR},
+            #{nameEn,jdbcType=VARCHAR}
+        )
+    ]]>
+    </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.CoinType">
+        UPDATE Coin_Type
+        <set>
+            <if test="nameCh != null and nameCh != ''">
+                nameCh=#{nameCh,jdbcType=VARCHAR},
+            </if>
+            <if test="nameEn != null and nameEn != ''">
+                nameEn=#{nameEn,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE coinTypeId = #{coinTypeId,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from Coin_Type where coinTypeId= #{coinTypeId}
+    </delete>
+  
+</mapper>

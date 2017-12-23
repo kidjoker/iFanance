@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kidjoker.core.dao.WalletHistoryDao">
+
+    <resultMap id="WalletHistoryMap" type="cn.kidjoker.core.model.WalletHistory">
+        <id column="walletHistorySeq" property="walletHistorySeq" javaType="string" />
+        <result column="acctNo" property="acctNo" javaType="string" />
+        <result column="fundFlow" property="fundFlow" javaType="string" />
+        <result column="tradeAmount" property="tradeAmount" javaType="decimal" />
+        <result column="tradeAbstract" property="tradeAbstract" javaType="string" />
+        <result column="tradeNo" property="tradeNo" javaType="string" />
+        <result column="tradeType" property="tradeType" javaType="string" />
+        <result column="acctBalance" property="acctBalance" javaType="decimal" />
+        <result column="createTime" property="createTime" javaType="Date" />
+        <result column="updateTime" property="updateTime" javaType="Date" />
+    </resultMap>
+
+    <sql id="selectColumns">
+        A.walletHistorySeq, A.acctNo, A.fundFlow, A.tradeAmount, A.tradeAbstract, A.tradeNo,
+        A.tradeType, A.acctBalance, A.createTime, A.updateTime
+    </sql>
+
+    <sql id="selectWhere">
+        <where>
+            <if test="acctNo != null and acctNo != ''">
+                AND A.acctNo = #{acctNo, jdbcType=VARCHAR}
+            </if>
+            <if test="fundFlow != null and fundFlow != ''">
+                AND A.fundFlow = #{fundFlow, jdbcType=VARCHAR}
+            </if>
+            <if test="tradeNo != null and tradeNo != ''">
+                AND A.tradeNo = #{tradeNo, jdbcType=VARCHAR}
+            </if>
+            <if test="tradeType != null and tradeType != ''">
+                AND A.tradeType = #{tradeType, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="pageLimit">
+        <if test="start !=null and limit != null">
+            LIMIT #{start},#{limit}
+        </if>
+    </sql>
+    
+    <select id="selectList" resultMap="WalletHistoryMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM WalletHistory A
+        <include refid="selectWhere" />
+        <include refid="pageLimit" />
+    </select>
+    
+    <select id="selectCount" resultType="Integer" parameterType="HashMap">
+        SELECT COUNT(A.walletHistorySeq) FROM WalletHistory A
+        <include refid="selectWhere" />
+    </select>
+
+    <select id="selectOne" resultMap="WalletHistoryMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM WalletHistory A
+        <include refid="selectWhere" />
+    </select>
+    
+    <select id="selectById"  resultMap="WalletHistoryMap" parameterType="string">
+        SELECT
+        <include refid="selectColumns" />
+        FROM WalletHistory A
+        WHERE A.walletHistorySeq = #{walletHistorySeq,javaType=string}
+    </select>
+
+    <insert id="insert" parameterType="cn.kidjoker.core.model.WalletHistory">
+    <![CDATA[
+        INSERT INTO WalletHistory
+        ( 
+	        walletHistorySeq, 
+	        acctNo, 
+	        fundFlow, 
+	        tradeAmount, 
+	        tradeAbstract, 
+	        tradeNo,
+        	tradeType, 
+        	acctBalance, 
+        	createTime
+        )
+        VALUES(
+            #{walletHistorySeq,jdbcType=VARCHAR},
+            #{acctNo,jdbcType=VARCHAR},
+            #{fundFlow,jdbcType=VARCHAR},
+            #{tradeAmount,jdbcType=DECIMAL},
+            #{tradeAbstract,jdbcType=VARCHAR},
+            #{tradeNo,jdbcType=VARCHAR},
+            #{tradeType,jdbcType=VARCHAR},
+            #{acctBalance,jdbcType=DECIMAL},
+            CURRENT_TIMESTAMP
+        )
+    ]]>
+    </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.WalletHistory">
+        UPDATE WalletHistory
+        <set>
+            <if test="tradeType != null and tradeType != ''">
+                tradeType=#{tradeType,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE walletHistorySeq = #{walletHistorySeq,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from WalletHistory where walletHistorySeq= #{walletHistorySeq}
+    </delete>
+  
+</mapper>

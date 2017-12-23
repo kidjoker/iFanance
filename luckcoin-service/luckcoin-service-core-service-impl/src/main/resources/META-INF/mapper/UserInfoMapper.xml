@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kidjoker.core.dao.UserInfoDao">
+
+    <resultMap id="UserInfoMap" type="cn.kidjoker.core.model.UserInfo">
+        <id column="userNo" property="userNo" javaType="string" />
+        <result column="acctNo" property="acctNo" javaType="string" />
+        <result column="mobilePrefix" property="mobilePrefix" javaType="string" />
+        <result column="mobile" property="mobile" javaType="string" />
+        <result column="email" property="email" javaType="string" />
+        <result column="payPwd" property="payPwd" javaType="string" />
+        <result column="payPwdSettingStatus" property="payPwdSettingStatus" javaType="string" />
+        <result column="currentStatus" property="currentStatus" javaType="string" />
+        <result column="createTime" property="createTime" javaType="Date" />
+        <result column="updateTime" property="updateTime" javaType="Date" />
+    </resultMap>
+
+    <sql id="selectColumns">
+        A.userNo, A.acctNo, A.mobilePrefix, A.mobile, A.email, A.payPwd, A.payPwdSettingStatus, A.currentStatus, A.createTime, A.updateTime
+    </sql>
+
+    <sql id="selectWhere">
+        <where>
+            <if test="userNo != null and userNo != ''">
+                AND A.userNo = #{userNo, jdbcType=VARCHAR}
+            </if>
+            <if test="acctNo != null and acctNo != ''">
+                AND A.acctNo = #{acctNo, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="pageLimit">
+        <if test="start !=null and limit != null">
+            LIMIT #{start},#{limit}
+        </if>
+    </sql>
+    
+    <select id="selectList" resultMap="UserInfoMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM UserInfo A
+        <include refid="selectWhere" />
+        <include refid="pageLimit" />
+    </select>
+    
+    <select id="selectCount" resultType="Integer" parameterType="HashMap">
+        SELECT COUNT(A.userNo) FROM UserInfo A
+        <include refid="selectWhere" />
+    </select>
+
+    <select id="selectOne" resultMap="UserInfoMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM UserInfo A
+        <include refid="selectWhere" />
+    </select>
+    
+    <select id="selectById"  resultMap="UserInfoMap" parameterType="string">
+        SELECT
+        <include refid="selectColumns" />
+        FROM UserInfo A
+        WHERE A.userNo = #{userNo,javaType=string}
+    </select>
+
+    <insert id="insert" parameterType="cn.kidjoker.core.model.UserInfo">
+    <![CDATA[
+        INSERT INTO UserInfo
+        ( 
+	        userNo, 
+	        acctNo, 
+	        mobilePrefix, 
+	        mobile, 
+	        email, 
+	        payPwd, 
+	        payPwdSettingStatus, 
+	        currentStatus, 
+	        createTime
+        )
+        VALUES(
+            #{userNo,jdbcType=VARCHAR},
+            #{acctNo,jdbcType=VARCHAR},
+            #{mobilePrefix,jdbcType=VARCHAR},
+            #{mobile,jdbcType=VARCHAR},
+            #{email,jdbcType=VARCHAR},
+            #{payPwd,jdbcType=VARCHAR},
+            #{payPwdSettingStatus,jdbcType=VARCHAR},
+            #{currentStatus,jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP
+        )
+    ]]>
+    </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.UserInfo">
+        UPDATE UserInfo
+        <set>
+            <if test="acctNo != null and acctNo != ''">
+                acctNo=#{acctNo,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile=#{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="payPwd != null and payPwd != ''">
+                payPwd=#{payPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="currentStatus != null and currentStatus != ''">
+                currentStatus=#{currentStatus,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE userNo = #{userNo,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from UserInfo where userNo= #{userNo}
+    </delete>
+  
+</mapper>

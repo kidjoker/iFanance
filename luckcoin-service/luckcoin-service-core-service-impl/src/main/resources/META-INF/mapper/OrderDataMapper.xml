@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kidjoker.core.dao.OrderDataDao">
+
+    <resultMap id="OrderDataMap" type="cn.kidjoker.core.model.OrderData">
+        <id column="orderNo" property="orderNo" javaType="long" />
+        <result column="tradeNo" property="tradeNo" javaType="string" />
+        <result column="adId" property="adId" javaType="string" />
+        <result column="userNo" property="userNo" javaType="string" />
+        <result column="tradeFeeSeq" property="tradeFeeSeq" javaType="string" />
+        <result column="tradeType" property="tradeType" javaType="string" />
+        <result column="tradeCurrency" property="tradeCurrency" javaType="string" />
+        <result column="initiatorUserNo" property="initiatorUserNo" javaType="string" />
+        <result column="initiatorInfo" property="initiatorInfo" javaType="string" />
+        <result column="receiverUserNo" property="receiverUserNo" javaType="string" />
+        <result column="receiverInfo" property="receiverInfo" javaType="string" />
+        <result column="tradeAmount" property="tradeAmount" javaType="string" />
+        <result column="payMethod" property="payMethod" javaType="string" />
+        <result column="tradeStatus" property="tradeStatus" javaType="string" />
+        <result column="tradeTime" property="tradeTime" javaType="Date" />
+        <result column="updateTime" property="updateTime" javaType="Date" />
+    </resultMap>
+
+    <sql id="selectColumns">
+        A.orderNo, A.adId, A.userNo, A.tradeFeeSeq, A.tradeType, A.tradeCurrency,
+        A.initiatorUserNo, A.initiatorInfo, A.receiverUserNo, A.receiverInfo, A.tradeAmount, A.tradeCurrency,
+        A.payMethod, A.tradeStatus, A.tradeTime, A.updateTime
+    </sql>
+
+    <sql id="selectWhere">
+        <where>
+            <if test="orderNo != null and orderNo != ''">
+                AND A.orderNo = #{orderNo, jdbcType=VARCHAR}
+            </if>
+            <if test="adId != null and adId != ''">
+                AND A.adId = #{adId, jdbcType=VARCHAR}
+            </if>
+            <if test="userNo != null and userNo != ''">
+                AND A.userNo = #{userNo, jdbcType=VARCHAR}
+            </if>
+            <if test="tradeFeeSeq != null and tradeFeeSeq != ''">
+                AND A.tradeFeeSeq = #{tradeFeeSeq, jdbcType=VARCHAR}
+            </if>
+            <if test="tradeType != null and tradeType != ''">
+                AND A.tradeType = #{tradeType, jdbcType=VARCHAR}
+            </if>
+            <if test="tradeCurrency != null and tradeCurrency != ''">
+                AND A.tradeCurrency = #{tradeCurrency, jdbcType=VARCHAR}
+            </if>
+            <if test="payMethod != null and payMethod != ''">
+                AND A.payMethod = #{payMethod, jdbcType=VARCHAR}
+            </if>
+            <if test="tradeStatus != null and tradeStatus != ''">
+                AND A.tradeStatus = #{tradeStatus, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="pageLimit">
+        <if test="start !=null and limit != null">
+            LIMIT #{start},#{limit}
+        </if>
+    </sql>
+    
+    <select id="selectList" resultMap="OrderDataMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Order_Data A
+        <include refid="selectWhere" />
+        <include refid="pageLimit" />
+    </select>
+    
+    <select id="selectCount" resultType="Integer" parameterType="HashMap">
+        SELECT COUNT(A.orderNo) FROM Order_Data A
+        <include refid="selectWhere" />
+    </select>
+
+    <select id="selectOne" resultMap="OrderDataMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Order_Data A
+        <include refid="selectWhere" />
+    </select>
+    
+    <select id="selectById"  resultMap="OrderDataMap" parameterType="string">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Order_Data A
+        WHERE A.orderNo = #{orderNo,javaType=string}
+    </select>
+
+    <insert id="insert" parameterType="cn.kidjoker.core.model.OrderData">
+    <![CDATA[
+        INSERT INTO Order_Data
+        ( 
+	        orderNo, 
+	        adId, 
+	        userNo, 
+	        tradeFeeSeq, 
+	        tradeType, 
+	        tradeCurrency,
+       		initiatorUserNo, 
+       		initiatorInfo, 
+       		receiverUserNo, 
+       		receiverInfo, 
+       		tradeAmount, 
+       		tradeCurrency,
+       		payMethod, 
+       		tradeStatus, 
+       		tradeTime
+        )
+        VALUES(
+            #{orderNo,jdbcType=VARCHAR},
+            #{adId,jdbcType=VARCHAR},
+            #{userNo,jdbcType=VARCHAR},
+            #{tradeFeeSeq,jdbcType=VARCHAR},
+            #{tradeType,jdbcType=VARCHAR},
+            #{tradeCurrency,jdbcType=VARCHAR},
+            #{initiatorUserNo,jdbcType=VARCHAR},
+            #{initiatorInfo,jdbcType=VARCHAR},
+            #{receiverUserNo,jdbcType=VARCHAR},
+            #{receiverInfo,jdbcType=VARCHAR},
+            #{tradeAmount,jdbcType=DECIMAL},
+            #{tradeCurrency,jdbcType=VARCHAR},
+            #{payMethod,jdbcType=VARCHAR},
+            #{tradeStatus,jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP
+        )
+    ]]>
+    </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.OrderData">
+        UPDATE Order_Data
+        <set>
+            <if test="tradeStatus != null and tradeStatus != ''">
+                tradeStatus=#{tradeStatus,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE orderNo = #{orderNo,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from Order_Data where orderNo= #{orderNo}
+    </delete>
+  
+</mapper>

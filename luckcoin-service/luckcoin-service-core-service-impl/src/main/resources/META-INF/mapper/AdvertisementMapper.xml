@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kidjoker.core.dao.AdvertisementDao">
+
+    <resultMap id="AdvertisementMap" type="cn.kidjoker.core.model.Advertisement">
+        <id column="adId" property="adId" javaType="String" />
+        <result column="adName" property="adName" javaType="string" />
+        <result column="sellerId" property="sellerId" javaType="string" />
+        <result column="coinTypeId" property="coinTypeId" javaType="string" />
+        <result column="adURL" property="adURL" javaType="string" />
+        <result column="adClickNum" property="adClickNum" javaType="int" />
+        <result column="adSort" property="adSort" javaType="int" />
+        <result column="adStatus" property="adStatus" javaType="string" />
+        <result column="createTime" property="createTime" javaType="Date" />
+        <result column="updateTime" property="updateTime" javaType="Date" />
+    </resultMap>
+
+    <sql id="selectColumns">
+        A.adId, A.adName, A.sellerId, A.coinTypeId, A.adURL, A.adClickNum, A.adSort, A.adStatus, A.createTime, A.updateTime
+    </sql>
+
+    <sql id="selectWhere">
+        <where>
+            <if test="adName != null and adName != ''">
+                AND A.adName = #{adName, jdbcType=VARCHAR}
+            </if>
+            <if test="sellerId != null and sellerId != ''">
+                AND A.sellerId = #{sellerId, jdbcType=VARCHAR}
+            </if>
+            <if test="coinTypeId != null and coinTypeId != ''">
+                AND A.coinTypeId = #{coinTypeId, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="pageLimit">
+        <if test="start !=null and limit != null">
+            LIMIT #{start},#{limit}
+        </if>
+    </sql>
+    
+    <select id="selectList" resultMap="AdvertisementMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Advertisement A
+        <include refid="selectWhere" />
+        <include refid="pageLimit" />
+    </select>
+    
+    <select id="selectCount" resultType="Integer" parameterType="HashMap">
+        SELECT COUNT(A.adId) FROM Advertisement A
+        <include refid="selectWhere" />
+    </select>
+
+    <select id="selectOne" resultMap="AdvertisementMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Advertisement A
+        <include refid="selectWhere" />
+    </select>
+    
+    <select id="selectById"  resultMap="AdvertisementMap" parameterType="string">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Advertisement A
+        WHERE A.adId = #{adId,javaType=string}
+    </select>
+
+    <insert id="insert" parameterType="cn.kidjoker.core.model.Advertisement">
+    <![CDATA[
+        INSERT INTO Advertisement
+        ( 
+	        adId,
+       		adName,
+       		sellerId,
+       		coinTypeId,
+       		adURL,
+       		adClickNum,
+       		adSort,
+       		adStatus,
+       		createTime
+        )
+        VALUES(
+            #{adId,jdbcType=VARCHAR},
+            #{adName,jdbcType=VARCHAR},
+            #{sellerId,jdbcType=VARCHAR},
+            #{coinTypeId,jdbcType=VARCHAR},
+            #{adURL,jdbcType=VARCHAR},
+            #{adClickNum,jdbcType=INTEGER},
+            #{adSort,jdbcType=VARCHAR},
+            #{adStatus,jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP
+        )
+    ]]>
+    </insert>
+    
+    <update id="update" parameterType="cn.kidjoker.core.model.Advertisement">
+        UPDATE Advertisement
+        <set>
+            <if test="adName != null and adName != ''">
+                adName=#{adName,jdbcType=VARCHAR},
+            </if>
+            <if test="adURL != null and adURL != ''">
+                adURL=#{adURL,jdbcType=VARCHAR},
+            </if>
+            <if test="adClickNum != null and adClickNum != ''">
+                adClickNum=#{adClickNum,jdbcType=VARCHAR},
+            </if>
+            <if test="adSort != null and adSort != ''">
+                adSort=#{adSort,jdbcType=VARCHAR},
+            </if>
+            <if test="adStatus != null and adStatus != ''">
+                adStatus=#{adStatus,jdbcType=VARCHAR},
+            </if>
+            updateTime=CURRENT_TIMESTAMP
+        </set>
+        WHERE adId = #{adId,jdbcType=VARCHAR}
+    </update>
+    
+    <delete id="deleteById" parameterType="string">
+        delete from Advertisement where adId= #{adId}
+    </delete>
+  
+</mapper>
