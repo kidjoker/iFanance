@@ -30,9 +30,25 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class SearchDataBo {
 	
+	private String coinType;
+	
 	private String date;
 	
 	private Ticker ticker;
+
+	/**
+	 * @return the coinType
+	 */
+	public String getCoinType() {
+		return coinType;
+	}
+
+	/**
+	 * @param coinType the coinType to set
+	 */
+	public void setCoinType(String coinType) {
+		this.coinType = coinType;
+	}
 
 	public String getDate() {
 		return date;
@@ -151,7 +167,7 @@ public class SearchDataBo {
 	}
 	
 	public String toString() {
-		return JSONObject.toJSONString(this);
+		return getCoinType() + "," + getDate() + "," + ticker.getLast() + "," + ticker.getHigh() + "," + ticker.getLow() + "," + ticker.getBuy() + "," + ticker.getSell() + "," + ticker.getVol();
 	}
 	
 }

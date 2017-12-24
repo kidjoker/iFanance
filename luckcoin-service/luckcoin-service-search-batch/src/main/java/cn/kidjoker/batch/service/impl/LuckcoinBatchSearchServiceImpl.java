@@ -65,7 +65,7 @@ public class LuckcoinBatchSearchServiceImpl implements LuckcoinBatchSearchServic
 			param.put("symbol",coinTypes[i]);
 			
 			SearchDataBo resp = searchDataService.searchData(requestUrl, param);
-			System.out.println(resp);
+			resp.setCoinType(coinTypes[i]);
 			
 			try {
 				bw = new BufferedWriter(new FileWriter(csv, true));

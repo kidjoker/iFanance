@@ -14,6 +14,5 @@ public class SearchAction {
 	@ResponseBody
 	@RequestMapping(value="/query")
 	public void query() {
-		System.out.println("success");
 	}
 }

@@ -35,7 +35,7 @@ public class SearchDataTest extends AbstractTest {
 		String serviceName = "/ticker";
 		String requestUrl = hostUrl + serviceName + ".do";
 		
-		String[] coinTypes = {"pro_eth","ltc_btc"};
+		String[] coinTypes = {"btc_usd","ltc_usd","eth_usd","etc_usd","bch_usd"};
 		
 		Map<String, String> param = new HashMap<>();
 		File csv = new File("E:\\okcoin\\btcData\\1.csv");
@@ -46,7 +46,7 @@ public class SearchDataTest extends AbstractTest {
 			param.put("symbol",coinTypes[i]);
 			
 			SearchDataBo resp = searchDataService.searchData(requestUrl, param);
-			System.out.println(resp);
+			resp.setCoinType(coinTypes[i]);
 			
 			try {
 				bw = new BufferedWriter(new FileWriter(csv, true));
