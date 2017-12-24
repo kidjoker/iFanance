@@ -34,7 +34,7 @@ public class JUnit4ClassRunner extends SpringJUnit4ClassRunner {
 	
     static {  
         try {  
-            Log4jConfigurer.initLogging("classpath:META-INF/spring/log4j.properties");  
+            Log4jConfigurer.initLogging("classpath:META-INF/config/log4j.xml");  
         } 
         catch (FileNotFoundException ex) {  
             System.err.println("Cannot Initialize log4j");  
