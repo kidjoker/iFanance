@@ -13,5 +13,6 @@
   	<module>luckcoin-service-search-batch</module>
   	<module>luckcoin-service-parse-service</module>
   	<module>luckcoin-service-search-Data-service</module>
+  	<module>luckcoin-service-notification-service</module>
   </modules>
 </project>
