@@ -41,33 +41,33 @@
     <select id="selectList" resultMap="TradeFeeMap" parameterType="HashMap">
         SELECT
         <include refid="selectColumns" />
-        FROM TradeFee A
+        FROM Trade_Fee A
         <include refid="selectWhere" />
         <include refid="pageLimit" />
     </select>
     
     <select id="selectCount" resultType="Integer" parameterType="HashMap">
-        SELECT COUNT(A.tradeFeeSeq) FROM TradeFee A
+        SELECT COUNT(A.tradeFeeSeq) FROM Trade_Fee A
         <include refid="selectWhere" />
     </select>
 
     <select id="selectOne" resultMap="TradeFeeMap" parameterType="HashMap">
         SELECT
         <include refid="selectColumns" />
-        FROM TradeFee A
+        FROM Trade_Fee A
         <include refid="selectWhere" />
     </select>
     
     <select id="selectById"  resultMap="TradeFeeMap" parameterType="string">
         SELECT
         <include refid="selectColumns" />
-        FROM TradeFee A
+        FROM Trade_Fee A
         WHERE A.tradeFeeSeq = #{tradeFeeSeq,javaType=string}
     </select>
 
     <insert id="insert" parameterType="cn.kidjoker.core.model.TradeFee">
     <![CDATA[
-        INSERT INTO TradeFee
+        INSERT INTO Trade_Fee
         ( 
 	        tradeFeeSeq, 
 	        tradeType, 
@@ -96,7 +96,7 @@
     </insert>
     
     <update id="update" parameterType="cn.kidjoker.core.model.TradeFee">
-        UPDATE TradeFee
+        UPDATE Trade_Fee
         <set>
             <if test="tradeType != null and tradeType != ''">
                 tradeType=#{tradeType,jdbcType=VARCHAR},
@@ -113,7 +113,7 @@
     </update>
     
     <delete id="deleteById" parameterType="string">
-        delete from TradeFee where tradeFeeSeq= #{tradeFeeSeq}
+        delete from Trade_Fee where tradeFeeSeq= #{tradeFeeSeq}
     </delete>
   
 </mapper>

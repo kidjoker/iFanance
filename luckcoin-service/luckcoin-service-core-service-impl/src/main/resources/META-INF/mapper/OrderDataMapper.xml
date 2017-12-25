@@ -6,8 +6,7 @@
 <mapper namespace="cn.kidjoker.core.dao.OrderDataDao">
 
     <resultMap id="OrderDataMap" type="cn.kidjoker.core.model.OrderData">
-        <id column="orderNo" property="orderNo" javaType="long" />
-        <result column="tradeNo" property="tradeNo" javaType="string" />
+        <id column="orderNo" property="orderNo" javaType="string" />
         <result column="adId" property="adId" javaType="string" />
         <result column="userNo" property="userNo" javaType="string" />
         <result column="tradeFeeSeq" property="tradeFeeSeq" javaType="string" />
@@ -107,7 +106,6 @@
        		receiverUserNo, 
        		receiverInfo, 
        		tradeAmount, 
-       		tradeCurrency,
        		payMethod, 
        		tradeStatus, 
        		tradeTime
@@ -124,7 +122,6 @@
             #{receiverUserNo,jdbcType=VARCHAR},
             #{receiverInfo,jdbcType=VARCHAR},
             #{tradeAmount,jdbcType=DECIMAL},
-            #{tradeCurrency,jdbcType=VARCHAR},
             #{payMethod,jdbcType=VARCHAR},
             #{tradeStatus,jdbcType=VARCHAR},
             CURRENT_TIMESTAMP

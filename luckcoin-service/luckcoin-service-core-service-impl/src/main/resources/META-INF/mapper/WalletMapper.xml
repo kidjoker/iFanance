@@ -110,7 +110,7 @@
             <if test="walletHistorySeq != null and walletHistorySeq != ''">
                 walletHistorySeq=#{walletHistorySeq,jdbcType=VARCHAR},
             </if>
-            updateTime=CURRENT_TIMESTAMP
+            lastUpdateTime=CURRENT_TIMESTAMP
         </set>
         WHERE acctNo = #{acctNo,jdbcType=VARCHAR}
     </update>

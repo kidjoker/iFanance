@@ -30,7 +30,7 @@ public class AdvertisementTest extends AbstractTest {
 	@Test
 	public void testAdd() {
 		Advertisement adv = new Advertisement();
-		adv.setAdId("1234567");
+		adv.setAdId("1234567811");
 		adv.setAdName("hahaha");
 		advertisementService.add(adv);
 		logger.info("添加成功 {}", adv.getAdId());
@@ -55,9 +55,7 @@ public class AdvertisementTest extends AbstractTest {
 	
 	@Test
 	public void testDelete() {
-		Advertisement adv = new Advertisement();
-		adv.setAdId("12");
 		
-		advertisementService.delete(adv);
+		advertisementService.delete("12");
 	}
 }

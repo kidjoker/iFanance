@@ -49,33 +49,33 @@
     <select id="selectList" resultMap="WalletHistoryMap" parameterType="HashMap">
         SELECT
         <include refid="selectColumns" />
-        FROM WalletHistory A
+        FROM Wallet_History A
         <include refid="selectWhere" />
         <include refid="pageLimit" />
     </select>
     
     <select id="selectCount" resultType="Integer" parameterType="HashMap">
-        SELECT COUNT(A.walletHistorySeq) FROM WalletHistory A
+        SELECT COUNT(A.walletHistorySeq) FROM Wallet_History A
         <include refid="selectWhere" />
     </select>
 
     <select id="selectOne" resultMap="WalletHistoryMap" parameterType="HashMap">
         SELECT
         <include refid="selectColumns" />
-        FROM WalletHistory A
+        FROM Wallet_History A
         <include refid="selectWhere" />
     </select>
     
     <select id="selectById"  resultMap="WalletHistoryMap" parameterType="string">
         SELECT
         <include refid="selectColumns" />
-        FROM WalletHistory A
+        FROM Wallet_History A
         WHERE A.walletHistorySeq = #{walletHistorySeq,javaType=string}
     </select>
 
     <insert id="insert" parameterType="cn.kidjoker.core.model.WalletHistory">
     <![CDATA[
-        INSERT INTO WalletHistory
+        INSERT INTO Wallet_History
         ( 
 	        walletHistorySeq, 
 	        acctNo, 
@@ -102,7 +102,7 @@
     </insert>
     
     <update id="update" parameterType="cn.kidjoker.core.model.WalletHistory">
-        UPDATE WalletHistory
+        UPDATE Wallet_History
         <set>
             <if test="tradeType != null and tradeType != ''">
                 tradeType=#{tradeType,jdbcType=VARCHAR},
@@ -113,7 +113,7 @@
     </update>
     
     <delete id="deleteById" parameterType="string">
-        delete from WalletHistory where walletHistorySeq= #{walletHistorySeq}
+        delete from Wallet_History where walletHistorySeq= #{walletHistorySeq}
     </delete>
   
 </mapper>

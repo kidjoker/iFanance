@@ -16,15 +16,13 @@ public class OrderData extends BaseModelAdapter<String> {
 	
 	private static final long serialVersionUID = 2742583271212112916L;
 
-	private String tradeNo;
+	private String orderNo;
 	
 	private String adId;
 	
 	private String userNo;
 	
 	private String tradeFeeSeq;
-	
-	private String orderNo;
 	
 	private String tradeType;
 	
@@ -46,12 +44,12 @@ public class OrderData extends BaseModelAdapter<String> {
 	
 	private Date tradeTime;
 
-	public String getTradeNo() {
-		return tradeNo;
+	public String getOrderNo() {
+		return orderNo;
 	}
 
-	public void setTradeNo(String tradeNo) {
-		this.tradeNo = tradeNo;
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	public String getAdId() {
@@ -76,14 +74,6 @@ public class OrderData extends BaseModelAdapter<String> {
 
 	public void setTradeFeeSeq(String tradeFeeSeq) {
 		this.tradeFeeSeq = tradeFeeSeq;
-	}
-
-	public String getOrderNo() {
-		return orderNo;
-	}
-
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
 	}
 
 	public String getTradeType() {

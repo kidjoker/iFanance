@@ -120,7 +120,6 @@
             <if test="favorableRate != null and favorableRate != ''">
                 favorableRate=#{favorableRate,jdbcType=VARCHAR},
             </if>
-            updateTime=CURRENT_TIMESTAMP
         </set>
         WHERE sellerId = #{sellerId,jdbcType=VARCHAR}
     </update>

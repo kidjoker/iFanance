@@ -19,7 +19,7 @@ import cn.kidjoker.core.service.CoinTypeService;
  */
 public class CoinTypeTest extends AbstractTest {
 	
-private Logger logger = LoggerFactory.getLogger(CoinTypeTest.class);
+	private Logger logger = LoggerFactory.getLogger(CoinTypeTest.class);
 	
 	@Autowired
 	private CoinTypeService coinTypeService;
@@ -27,7 +27,7 @@ private Logger logger = LoggerFactory.getLogger(CoinTypeTest.class);
 	@Test
 	public void testAdd() {
 		CoinType coinType = new CoinType();
-		coinType.setCoinTypeId("1");
+		coinType.setCoinTypeId("123");
 		coinType.setNameCh("比特币");
 		
 		coinTypeService.add(coinType);
