@@ -104,9 +104,6 @@
             <if test="currency != null and currency != ''">
                 currency=#{currency,jdbcType=VARCHAR},
             </if>
-            <if test="favorableRate != null and favorableRate != ''">
-                favorableRate=#{favorableRate,jdbcType=VARCHAR},
-            </if>
             updateTime=CURRENT_TIMESTAMP
         </set>
         WHERE tradeFeeSeq = #{tradeFeeSeq,jdbcType=VARCHAR}

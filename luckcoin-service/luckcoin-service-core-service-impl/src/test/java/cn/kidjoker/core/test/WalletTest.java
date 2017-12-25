@@ -62,7 +62,7 @@ public class WalletTest extends AbstractTest {
 	public void testUpdate() {
 		Wallet wallet = new Wallet();
 		wallet.setAcctNo("123");
-		wallet.setWalletHistorySeq("1231233");
+		wallet.setWalletHistorySeq("1212313");
 		
 		walletService.update(wallet);
 	}

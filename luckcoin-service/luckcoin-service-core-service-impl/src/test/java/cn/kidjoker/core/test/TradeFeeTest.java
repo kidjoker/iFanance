@@ -61,10 +61,11 @@ public class TradeFeeTest extends AbstractTest {
 	
 	@Test
 	public void testUpdate() {
+		
 		TradeFee tradeFee = new TradeFee();
 		tradeFee.setTradeFeeSeq("123");
-		tradeFee.setTradeType("2");
-		
+		tradeFee.setCurrency("CNY");
+	
 		tradeFeeService.update(tradeFee);
 	}
 	

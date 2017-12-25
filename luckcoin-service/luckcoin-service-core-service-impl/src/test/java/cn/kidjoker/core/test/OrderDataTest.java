@@ -64,7 +64,7 @@ public class OrderDataTest extends AbstractTest {
 	public void testUpdate() {
 		OrderData orderData = new OrderData();
 		orderData.setOrderNo("123");
-		orderData.setTradeStatus("1");
+		orderData.setTradeStatus("2");
 		
 		orderDataService.update(orderData);
 	}

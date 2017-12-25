@@ -55,14 +55,14 @@ public class SellerTest extends AbstractTest {
 		seller.setSellerId("123");
 		seller = sellerService.getModel(seller);
 		
-		System.out.println(seller.getSellerId());
+		logger.debug("{}",seller.getTradeCount());
 	}
 	
 	@Test
 	public void testUpdate() {
 		Seller seller = new Seller();
 		seller.setSellerId("123");
-		seller.setTradeCount("123");
+		seller.setTradeCount("1233");
 		
 		sellerService.update(seller);
 	}

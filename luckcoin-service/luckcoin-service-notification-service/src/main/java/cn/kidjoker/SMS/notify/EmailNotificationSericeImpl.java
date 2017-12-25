@@ -17,7 +17,17 @@
  */
 package cn.kidjoker.SMS.notify;
 
-import org.apache.commons.mail.HtmlEmail;
+import java.rmi.registry.Registry;
+import java.util.Date;
+
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+
+import cn.kidjoker.common.test.AbstractTest;
 
 /**
  * <p>
@@ -26,34 +36,27 @@ import org.apache.commons.mail.HtmlEmail;
  * @author jinzhijie
  * @creatTime 2017年12月25日 下午6:28:27
  */
-public class EmailNotificationSericeImpl {
+public class EmailNotificationSericeImpl extends AbstractTest {
 	
-	public static void main(String[] args) {
-		
-		HtmlEmail email = new HtmlEmail();
-		
+	private Logger logger = LoggerFactory.getLogger(EmailNotificationSericeImpl.class);
+	
+	@Autowired
+	private JavaMailSender javaMailSender;
+	
+	@Test 
+	public void testMail() {
 		try {
-			email.setHostName("smtp.qq.com");  
-            // 字符编码集的设置  
-            email.setCharset("gbk");  
-            // 收件人的邮箱  
-            email.addTo("13621952184@163.com");  
-            // 发送人的邮箱  
-            email.setFrom("397602769@qq.com", "jinzhijie");  
-            // 如果需要认证信息的话，设置认证：用户名-密码。分别为发件人在邮件服务器上的注册名称和密码  
-            email.setAuthentication("397602769@qq.com", "itopdppqeambbjfi");  
-            email.setSubject("下午3：00会议室讨论，请准时参加");  
-            // 要发送的信息，由于使用了HtmlEmail，可以在邮件内容中使用HTML标签  
-            email.setMsg("<h1 style='color:red'>下午3：00会议室讨论</h1>" + " 请准时参加！");  
-            // 发送  
-            email.send();  
-  
-            System.out.println("邮件发送成功!");
+			SimpleMailMessage mailMessage = new SimpleMailMessage();
+			mailMessage.setFrom("13621952184@163.com");
+			mailMessage.setTo("397602769@qq.com");
+			mailMessage.setSubject("test Mail");
+			mailMessage.setText("text/html;charset=utf-8");
+			mailMessage.setSentDate(new Date());
+			javaMailSender.send(mailMessage);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("邮件发送失败!"); 
 		}
-		
 	}
+	
 }

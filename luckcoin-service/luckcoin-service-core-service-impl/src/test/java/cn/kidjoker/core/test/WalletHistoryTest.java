@@ -62,7 +62,7 @@ public class WalletHistoryTest extends AbstractTest {
 	public void testUpdate() {
 		WalletHistory walletHistory = new WalletHistory();
 		walletHistory.setWalletHistorySeq("123");
-		walletHistory.setTradeType("2");
+		walletHistory.setTradeType("3");
 		
 		walletHistoryService.update(walletHistory);
 	}

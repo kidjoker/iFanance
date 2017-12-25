@@ -62,7 +62,7 @@ public class UserInfoTest extends AbstractTest {
 	public void testUpdate() {
 		UserInfo userInfo = new UserInfo();
 		userInfo.setUserNo("123");
-		userInfo.setMobile("242424324");
+		userInfo.setMobile("131234");
 		
 		userInfoService.update(userInfo);
 	}
