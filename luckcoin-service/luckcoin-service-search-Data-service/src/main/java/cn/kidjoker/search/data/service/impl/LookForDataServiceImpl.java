@@ -1,6 +1,5 @@
 package cn.kidjoker.search.data.service.impl;
 
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -8,12 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import cn.kidjoker.common.util.IClientService;
 import cn.kidjoker.common.util.MapToBeanUtils;
 import cn.kidjoker.search.data.bo.SearchDataBo;
-import cn.kidjoker.search.data.service.SearchDataService;
+import cn.kidjoker.search.data.service.LookForDataService;
 
 /**
  *
@@ -23,9 +20,9 @@ import cn.kidjoker.search.data.service.SearchDataService;
  * @version 1.0.0
  */
 @Service
-public class SearchDataServiceImpl implements SearchDataService {
+public class LookForDataServiceImpl implements LookForDataService {
 
-	private Logger logger = LoggerFactory.getLogger(SearchDataServiceImpl.class);
+	private Logger logger = LoggerFactory.getLogger(LookForDataServiceImpl.class);
 	
 	@Autowired
 	private IClientService iClientService;

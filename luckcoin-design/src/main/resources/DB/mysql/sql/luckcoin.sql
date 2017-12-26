@@ -1,44 +1,3 @@
-/*==============================================================*/
-/* DBMS name:      Sybase SQL Anywhere 12                       */
-/* Created on:     2017/12/15 星期五 19:09:57                      */
-/*==============================================================*/
-
-
-if exists(select 1 from sys.sysforeignkey where role='FK_ADVERTIS_REFERENCE_COIN_TYP') then
-    alter table Advertisement
-       delete foreign key FK_ADVERTIS_REFERENCE_COIN_TYP
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_ADVERTIS_REFERENCE_SELLER') then
-    alter table Advertisement
-       delete foreign key FK_ADVERTIS_REFERENCE_SELLER
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_ORDER_DA_REFERENCE_ADVERTIS') then
-    alter table Order_Data
-       delete foreign key FK_ORDER_DA_REFERENCE_ADVERTIS
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_ORDER_DA_REFERENCE_USER') then
-    alter table Order_Data
-       delete foreign key FK_ORDER_DA_REFERENCE_USER
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_ORDER_DA_REFERENCE_TRADE_FE') then
-    alter table Order_Data
-       delete foreign key FK_ORDER_DA_REFERENCE_TRADE_FE
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_USER_REFERENCE_WALLET') then
-    alter table "User"
-       delete foreign key FK_USER_REFERENCE_WALLET
-end if;
-
-if exists(select 1 from sys.sysforeignkey where role='FK_WALLET_REFERENCE_WALLET_H') then
-    alter table Wallet
-       delete foreign key FK_WALLET_REFERENCE_WALLET_H
-end if;
-
 drop table if exists Advertisement;
 
 drop table if exists Coin_Type;
@@ -51,11 +10,13 @@ drop table if exists Seller;
 
 drop table if exists Trade_Fee;
 
-drop table if exists "User";
+drop table if exists User;
 
 drop table if exists Wallet;
 
 drop table if exists Wallet_History;
+
+drop table if exists Search_Data;
 
 /*==============================================================*/
 /* Table: Advertisement                                         */
@@ -72,7 +33,7 @@ create table Advertisement
    adStatus             varchar(2)                     null,
    createTime           datetime                       null,
    updateTime           datetime                       null,
-   constraint PK_ADVERTISEMENT primary key clustered (adId)
+   primary key (adId)
 );
 
 /*==============================================================*/
@@ -83,11 +44,8 @@ create table Coin_Type
    coinTypeId           varchar(10)                    not null,
    nameCh               varchar(10)                    null,
    nameEn               varchar(10)                    null,
-   constraint PK_COIN_TYPE primary key clustered (coinTypeId)
+   primary key (coinTypeId)
 );
-
-comment on table Coin_Type is 
-'货币英文名';
 
 /*==============================================================*/
 /* Table: Core_Seqno                                            */
@@ -96,11 +54,8 @@ create table Core_Seqno
 (
    seqType              varchar(30)                    not null,
    seqValue             varchar(30)                    null,
-   constraint PK_CORE_SEQNO primary key clustered (seqType)
+   primary key (seqType)
 );
-
-comment on table Core_Seqno is 
-'货币英文名';
 
 /*==============================================================*/
 /* Table: Order_Data                                            */
@@ -123,7 +78,7 @@ create table Order_Data
    tradeStatus          varchar(2)                     null,
    tradeTime            datetime                       null,
    updateTime           datetime                       null,
-   constraint PK_ORDER_DATA primary key clustered (tradeNo)
+   primary key (tradeNo)
 );
 
 /*==============================================================*/
@@ -139,7 +94,7 @@ create table Seller
    payMethod            varchar(10)                    null,
    priceMax             smallint                       null,
    priceMin             smallint                       null,
-   constraint PK_SELLER primary key clustered (sellerId)
+   primary key (sellerId)
 );
 
 /*==============================================================*/
@@ -158,7 +113,7 @@ create table Trade_Fee
    singleMaxFee         decimal(20,2)                  null,
    createTime           datetime                       null,
    updateTime           datetime                       null,
-   constraint PK_TRADE_FEE primary key clustered (tradeFeeSeq)
+   primary key (tradeFeeSeq)
 );
 
 /*==============================================================*/
@@ -194,7 +149,7 @@ create table Wallet
    createTime           datetime                       null,
    lastUpdateTime       datetime                       null,
    walletType           varchar(2)                     null,
-   constraint PK_WALLET primary key clustered (acctNo)
+   primary key (acctNo)
 );
 
 /*==============================================================*/
@@ -212,48 +167,25 @@ create table Wallet_History
    acctBalance          decimal(20,2)                  null,
    createTime           datetime                       null,
    updateTime           datetime                       null,
-   constraint PK_WALLET_HISTORY primary key clustered (walletHistorySeq)
+   primary key (walletHistorySeq)
 );
 
-alter table Advertisement
-   add constraint FK_ADVERTIS_REFERENCE_COIN_TYP foreign key (coinTypeId)
-      references Coin_Type (coinTypeId)
-      on update restrict
-      on delete restrict;
+/*==============================================================*/
+/* Table: Search_Data                                           */
+/*==============================================================*/
+create table Search_Data 
+(
+   id                   varchar(30)                    not null,
+   coinType             varchar(10)                    null,
+   high                 varchar(10)                    null,
+   low                  varchar(10)                    null,
+   vol                  varchar(10)                    null,
+   last                 varchar(10)                    null,
+   buy                  varchar(10)                    null,
+   sell                 varchar(10)                    null,
+   createTime           datetime                       null,
+   primary key (id)
+);
 
-alter table Advertisement
-   add constraint FK_ADVERTIS_REFERENCE_SELLER foreign key (sellerId)
-      references Seller (sellerId)
-      on update restrict
-      on delete restrict;
 
-alter table Order_Data
-   add constraint FK_ORDER_DA_REFERENCE_ADVERTIS foreign key (adId)
-      references Advertisement (adId)
-      on update restrict
-      on delete restrict;
-
-alter table Order_Data
-   add constraint FK_ORDER_DA_REFERENCE_USER foreign key (userNo)
-      references "User" (userNo)
-      on update restrict
-      on delete restrict;
-
-alter table Order_Data
-   add constraint FK_ORDER_DA_REFERENCE_TRADE_FE foreign key (tradeFeeSeq)
-      references Trade_Fee (tradeFeeSeq)
-      on update restrict
-      on delete restrict;
-
-alter table "User"
-   add constraint FK_USER_REFERENCE_WALLET foreign key (acctNo)
-      references Wallet (acctNo)
-      on update restrict
-      on delete restrict;
-
-alter table Wallet
-   add constraint FK_WALLET_REFERENCE_WALLET_H foreign key (walletHistorySeq)
-      references Wallet_History (walletHistorySeq)
-      on update restrict
-      on delete restrict;
 

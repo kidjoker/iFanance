@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kidjoker.core.dao.SearchDataDao">
+
+    <resultMap id="SearchDataMap" type="cn.kidjoker.core.model.SearchData">
+        <id column="id" property="id" javaType="long" />
+        <id column="coinType" property="coinType" javaType="string" />
+        <result column="high" property="high" javaType="string" />
+        <result column="low" property="low" javaType="string" />
+        <result column="last" property="last" javaType="string" />
+        <result column="vol" property="vol" javaType="string" />
+        <result column="buy" property="buy" javaType="string" />
+        <result column="sell" property="sell" javaType="string" />
+        <result column="createTime" property="createTime" javaType="Date" />
+    </resultMap>
+
+    <sql id="selectColumns">
+        A.coinType, A.high, A.low, A.last, A.vol, A.buy,A.sell, A.createTime
+    </sql>
+
+    <sql id="selectWhere">
+        <where>
+            <if test="last != null and last != ''">
+                AND A.last = #{last, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="pageLimit">
+        <if test="start !=null and limit != null">
+            LIMIT #{start},#{limit}
+        </if>
+    </sql>
+    
+    <select id="selectList" resultMap="SearchDataMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Search_Data A
+        <include refid="selectWhere" />
+        <include refid="pageLimit" />
+    </select>
+    
+    <select id="selectCount" resultType="Integer" parameterType="HashMap">
+        SELECT COUNT(A.id) FROM Search_Data A
+        <include refid="selectWhere" />
+    </select>
+
+    <select id="selectOne" resultMap="SearchDataMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Search_Data A
+        <include refid="selectWhere" />
+    </select>
+    
+    <select id="selectById"  resultMap="SearchDataMap" parameterType="string">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Search_Data A
+        WHERE A.id = #{id,javaType=long}
+    </select>
+
+    <insert id="insert" parameterType="cn.kidjoker.core.model.SearchData">
+    <![CDATA[
+        INSERT INTO Search_Data
+        ( 
+            coinType,
+            high, 
+            low, 
+            last, 
+            vol, 
+            buy,
+            sell, 
+            createTime
+        )
+        VALUES(
+            #{coinType,jdbcType=VARCHAR},
+            #{high,jdbcType=VARCHAR},
+            #{low,jdbcType=VARCHAR},
+            #{last,jdbcType=VARCHAR},
+            #{vol,jdbcType=VARCHAR},
+            #{buy,jdbcType=VARCHAR},
+            #{sell,jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP
+        )
+    ]]>
+    </insert>
+</mapper>

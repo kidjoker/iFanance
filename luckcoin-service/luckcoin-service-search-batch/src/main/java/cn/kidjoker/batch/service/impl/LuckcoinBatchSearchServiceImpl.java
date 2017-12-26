@@ -26,11 +26,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import cn.kidjoker.batch.service.LuckcoinBatchSearchService;
+import cn.kidjoker.core.model.SearchData;
+import cn.kidjoker.core.service.SearchDataService;
 import cn.kidjoker.search.data.bo.SearchDataBo;
-import cn.kidjoker.search.data.service.SearchDataService;
+import cn.kidjoker.search.data.service.LookForDataService;
 
 /**
  * <p>
@@ -42,46 +45,72 @@ import cn.kidjoker.search.data.service.SearchDataService;
 @Service("LuckcoinSearchBatchJob")
 public class LuckcoinBatchSearchServiceImpl implements LuckcoinBatchSearchService {
 	
+	private static final String PATTERN = ",";
+	
+	@Value(value = "${okcoin.host.url}")
+	private String hostUrl;
+	
+	@Value(value = "${okcoin.service.name}")
+	private String serviceName;
+	
+	@Value(value = "${okcoin.coinType.name}")
+	private String coinType;
+	
+	@Autowired
+	private LookForDataService lookForDataService;
+	
 	@Autowired
 	private SearchDataService searchDataService;
-	
-	private String hostUrl = "https://www.okex.com/api/v1";
-	
-	private String serviceName = "/ticker";
-	
-	private String[] coinTypes = {"pro_eth","ltc_btc"};
 	
 	@Override
 	public void execute() throws Exception {
 		
-		String requestUrl = hostUrl + serviceName + ".do";
-		
 		Map<String, String> param = new HashMap<>();
-		File csv = new File("E:\\okcoin\\btcData\\1.csv");
-		BufferedWriter bw = null;
 		
+		String requestUrl = hostUrl + serviceName;
+		
+		String[] coinTypes = coinType.split(PATTERN);
 		for(int i = 0; i < coinTypes.length; i++) {
 			
 			param.put("symbol",coinTypes[i]);
 			
-			SearchDataBo resp = searchDataService.searchData(requestUrl, param);
+			SearchDataBo resp = lookForDataService.searchData(requestUrl, param);
 			resp.setCoinType(coinTypes[i]);
 			
-			try {
-				bw = new BufferedWriter(new FileWriter(csv, true));
-				bw.write(resp.toString());
-			}
-			catch (FileNotFoundException e) { 
-				e.printStackTrace(); 
-	        } 
-			catch (IOException e) { 
-	        	e.printStackTrace(); 
-	        }
-			finally {
-				bw.newLine(); 
-		        bw.close();
-			}
+			//保存到数据库中
+			SearchData dataToDB = new SearchData();
+			dataToDB.setCoinType(resp.getCoinType());
+			dataToDB.setLast(resp.getTicker().getLast());
+			dataToDB.setLow(resp.getTicker().getLow());
+			dataToDB.setHigh(resp.getTicker().getHigh());
+			dataToDB.setVol(resp.getTicker().getVol());
+			dataToDB.setBuy(resp.getTicker().getBuy());
+			dataToDB.setSell(resp.getTicker().getSell());
+			searchDataService.add(dataToDB);
 			
+			//保存到CSV文件中
+			save2CSV(resp);
+		}
+	}
+	
+	private static void save2CSV(SearchDataBo searchDataBo) throws IOException {
+		
+		BufferedWriter bw = null;
+		File csv = new File("E:\\okcoin\\coinData\\1.csv");
+		
+		try {
+			bw = new BufferedWriter(new FileWriter(csv, true));
+			bw.write(searchDataBo.toString());
+		}
+		catch (FileNotFoundException e) { 
+			e.printStackTrace(); 
+        } 
+		catch (IOException e) {
+        	e.printStackTrace(); 
+        }
+		finally {
+			bw.newLine(); 
+	        bw.close();
 		}
 	}
 	

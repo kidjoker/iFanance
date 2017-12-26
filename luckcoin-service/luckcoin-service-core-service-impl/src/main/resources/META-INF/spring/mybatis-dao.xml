@@ -38,4 +38,8 @@
         <property name="mapperInterface" value="cn.kidjoker.core.dao.WalletHistoryDao" />
     </bean>
     
+    <bean id="SearchDataDao" parent="baseDaoMapper">
+        <property name="mapperInterface" value="cn.kidjoker.core.dao.SearchDataDao" />
+    </bean>
+    
 </beans>

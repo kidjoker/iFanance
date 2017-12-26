@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.kidjoker.common.test.AbstractTest;
 import cn.kidjoker.search.data.bo.SearchDataBo;
-import cn.kidjoker.search.data.service.SearchDataService;
+import cn.kidjoker.search.data.service.LookForDataService;
 
 /**
  * 数据服务API
@@ -25,7 +25,7 @@ import cn.kidjoker.search.data.service.SearchDataService;
 public class SearchDataTest extends AbstractTest {
 	
 	@Autowired
-	private SearchDataService searchDataService;
+	private LookForDataService searchDataService;
 	
 	@Test
 	@SuppressWarnings("unused")
