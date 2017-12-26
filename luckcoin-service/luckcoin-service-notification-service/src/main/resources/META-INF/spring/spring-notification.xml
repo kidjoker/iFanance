@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
-    <context:property-placeholder location="classpath:META-INF/spring/mail.properties" file-encoding="utf-8" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:META-INF/spring/notification.properties" file-encoding="utf-8" ignore-unresolvable="true"/>
 
     <!-- mailSender配置 -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -22,5 +22,16 @@
                 <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
             </props>
         </property> 
+    </bean>
+    
+    <bean id="yuanPianClient" class="com.yunpian.sdk.YunpianClient">
+        <constructor-arg value="${yuanpian.SMS.apiKey}" />
+    </bean>
+    
+    <bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="${mail.smtp.from}" />
+        <property name="to" value="${mail.smtp.to}" />
+        <property name="subject" value="${mail.smtp.subject}" />
+        <property name="text" value="${mail.smtp.content}" />
     </bean>
 </beans>

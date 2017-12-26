@@ -20,11 +20,17 @@ package cn.kidjoker.SMS.notify;
 import java.util.Map;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.yunpian.sdk.YunpianClient;
 import com.yunpian.sdk.model.Result;
 import com.yunpian.sdk.model.SmsSingleSend;
+
+import cn.kidjoker.common.test.AbstractTest;
 
 /**
  * <p>
@@ -36,15 +42,35 @@ import com.yunpian.sdk.model.SmsSingleSend;
 @Service
 public class SMSNotificationServiceImpl {
 	
-	public void testSMSNotify(String mobile, String content) {
+	private Logger logger = LoggerFactory.getLogger(SMSNotificationServiceImpl.class);
+	
+	@Value(value = "${yuanpian.SMS.mobile}")
+	private String mobile;	
+	
+	@Value(value = "${yuanpian.SMS.content}")
+	private String content;
+	
+	@Autowired
+	private YunpianClient yunpianClient;
+	
+	public void testSMSNotify() {
 		
-		YunpianClient client = new YunpianClient("d4999cd0f27d1fafe98b11db9a0ec264").init();
+		logger.info("开始发送短信 接收方[{}], 短信内容[{}]",mobile, content);
 		
-		Map<String, String> param = client.newParam(2);
-		param.put(YunpianClient.MOBILE, mobile);
-		param.put(YunpianClient.TEXT, content);
-		Result<SmsSingleSend> r = client.sms().single_send(param);
+		try {
+			YunpianClient client = yunpianClient.init();
+			Map<String, String> param = client.newParam(2);
+			param.put(YunpianClient.MOBILE, mobile);
+			param.put(YunpianClient.TEXT, content);
+			Result<SmsSingleSend> r = client.sms().single_send(param);
+			
+			client.close();
+		}
+		catch (Exception e) {
+			//TODO 异常处理需要完善
+			e.printStackTrace();
+		}
 		
-		client.close();
+		logger.info("短信 发送成功");
 	}
 }

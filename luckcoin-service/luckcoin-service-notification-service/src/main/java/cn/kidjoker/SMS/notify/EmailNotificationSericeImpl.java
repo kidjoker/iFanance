@@ -17,17 +17,14 @@
  */
 package cn.kidjoker.SMS.notify;
 
-import java.rmi.registry.Registry;
 import java.util.Date;
 
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-
-import cn.kidjoker.common.test.AbstractTest;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -36,27 +33,32 @@ import cn.kidjoker.common.test.AbstractTest;
  * @author jinzhijie
  * @creatTime 2017年12月25日 下午6:28:27
  */
-public class EmailNotificationSericeImpl extends AbstractTest {
+@Service
+public class EmailNotificationSericeImpl {
 	
 	private Logger logger = LoggerFactory.getLogger(EmailNotificationSericeImpl.class);
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
-	@Test 
-	public void testMail() {
+	@Autowired
+	private SimpleMailMessage simpleMailMessage;
+	
+	public void sendMail() {
+		
+		logger.info("开始发送邮件 发件人[{}], 收件人[{}], 主题[{}]",
+				simpleMailMessage.getFrom(),simpleMailMessage.getTo(),simpleMailMessage.getSubject());
+		
 		try {
-			SimpleMailMessage mailMessage = new SimpleMailMessage();
-			mailMessage.setFrom("13621952184@163.com");
-			mailMessage.setTo("397602769@qq.com");
-			mailMessage.setSubject("test Mail");
-			mailMessage.setText("text/html;charset=utf-8");
-			mailMessage.setSentDate(new Date());
-			javaMailSender.send(mailMessage);
+			simpleMailMessage.setSentDate(new Date());
+			javaMailSender.send(simpleMailMessage);
 		}
 		catch (Exception e) {
+			//TODO 异常处理需要完善
 			e.printStackTrace();
 		}
+		
+		logger.info("邮件发送成功");
 	}
 	
 }

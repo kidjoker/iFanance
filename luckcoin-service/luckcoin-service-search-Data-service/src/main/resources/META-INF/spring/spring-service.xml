@@ -9,4 +9,6 @@
 	
     <context:component-scan base-package="cn.kidjoker.search.data.service.impl" />
     
+    <context:property-placeholder location="classpath:META-INF/spring/okcoinConfig.properties" file-encoding="utf-8" ignore-unresolvable="true"/>    
+     
 </beans>

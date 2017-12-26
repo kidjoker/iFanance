@@ -8,5 +8,5 @@ package cn.kidjoker.SMS.notify;
  * @version 1.0.0
  */
 public class MobilePushServiceImpl {
-
+	
 }
