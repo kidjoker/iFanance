@@ -27,6 +27,6 @@ import cn.kidjoker.core.model.SearchData;
  * @author jinzhijie
  * @creatTime 2017年12月26日 上午11:38:20
  */
-public interface SearchDataService extends IBaseService<SearchData, Long> {
+public interface SearchDataService extends IBaseService<SearchData, String> {
 
 }

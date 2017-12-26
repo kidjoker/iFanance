@@ -33,7 +33,7 @@ import cn.kidjoker.core.service.SearchDataService;
  * @creatTime 2017年12月26日 上午11:40:04
  */
 @Service
-public class SearchDataSerivceImpl extends MybatisBaseServiceImpl<SearchData, Long, SearchDataDao> implements SearchDataService {
+public class SearchDataSerivceImpl extends MybatisBaseServiceImpl<SearchData, String, SearchDataDao> implements SearchDataService {
 
 	@Autowired
 	private SearchDataDao baseDao;

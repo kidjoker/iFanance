@@ -27,6 +27,6 @@ import cn.kidjoker.core.model.SearchData;
  * @author jinzhijie
  * @creatTime 2017年12月26日 上午11:40:41
  */
-public interface SearchDataDao extends IMybatisBaseDao<SearchData, Long> {
+public interface SearchDataDao extends IMybatisBaseDao<SearchData, String> {
 
 }

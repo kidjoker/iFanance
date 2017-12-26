@@ -26,7 +26,7 @@ import cn.kidjoker.common.model.BaseModelAdapter;
  * @author jinzhijie
  * @creatTime 2017年12月26日 上午11:36:23
  */
-public class SearchData extends BaseModelAdapter<Long> {
+public class SearchData extends BaseModelAdapter<String> {
 	
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -37,7 +37,9 @@ public class SearchData extends BaseModelAdapter<Long> {
 	*/
 	
 	private static final long serialVersionUID = -2597972004887977882L;
-
+	
+	private String SearchSeq;
+	
 	private String coinType;
 	
 	private String high;
@@ -52,6 +54,20 @@ public class SearchData extends BaseModelAdapter<Long> {
 	
 	private String sell;
 	
+	/**
+	 * @return the searchSeq
+	 */
+	public String getSearchSeq() {
+		return SearchSeq;
+	}
+
+	/**
+	 * @param searchSeq the searchSeq to set
+	 */
+	public void setSearchSeq(String searchSeq) {
+		SearchSeq = searchSeq;
+	}
+
 	public String getCoinType() {
 		return coinType;
 	}

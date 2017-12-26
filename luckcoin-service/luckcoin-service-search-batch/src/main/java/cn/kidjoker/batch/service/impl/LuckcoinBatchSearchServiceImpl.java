@@ -24,6 +24,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -78,25 +79,32 @@ public class LuckcoinBatchSearchServiceImpl implements LuckcoinBatchSearchServic
 			resp.setCoinType(coinTypes[i]);
 			
 			//保存到数据库中
-			SearchData dataToDB = new SearchData();
-			dataToDB.setCoinType(resp.getCoinType());
-			dataToDB.setLast(resp.getTicker().getLast());
-			dataToDB.setLow(resp.getTicker().getLow());
-			dataToDB.setHigh(resp.getTicker().getHigh());
-			dataToDB.setVol(resp.getTicker().getVol());
-			dataToDB.setBuy(resp.getTicker().getBuy());
-			dataToDB.setSell(resp.getTicker().getSell());
-			searchDataService.add(dataToDB);
+			this.save2DB(resp);
 			
 			//保存到CSV文件中
-			save2CSV(resp);
+			this.save2CSV(resp);
 		}
 	}
 	
-	private static void save2CSV(SearchDataBo searchDataBo) throws IOException {
+	private void save2DB(SearchDataBo searchDataBo) {
+		
+		String[] uuids = UUID.randomUUID().toString().split("-");
+		SearchData dataToDB = new SearchData();
+		dataToDB.setSearchSeq(uuids[0] + uuids[1]);
+		dataToDB.setCoinType(searchDataBo.getCoinType());
+		dataToDB.setLast(searchDataBo.getTicker().getLast());
+		dataToDB.setLow(searchDataBo.getTicker().getLow());
+		dataToDB.setHigh(searchDataBo.getTicker().getHigh());
+		dataToDB.setVol(searchDataBo.getTicker().getVol());
+		dataToDB.setBuy(searchDataBo.getTicker().getBuy());
+		dataToDB.setSell(searchDataBo.getTicker().getSell());
+		searchDataService.add(dataToDB);
+	}
+	
+	private void save2CSV(SearchDataBo searchDataBo) throws IOException {
 		
 		BufferedWriter bw = null;
-		File csv = new File("E:\\okcoin\\coinData\\1.csv");
+		File csv = new File("/usr/app/data/1.csv");
 		
 		try {
 			bw = new BufferedWriter(new FileWriter(csv, true));
@@ -109,7 +117,7 @@ public class LuckcoinBatchSearchServiceImpl implements LuckcoinBatchSearchServic
         	e.printStackTrace(); 
         }
 		finally {
-			bw.newLine(); 
+			bw.newLine();
 	        bw.close();
 		}
 	}

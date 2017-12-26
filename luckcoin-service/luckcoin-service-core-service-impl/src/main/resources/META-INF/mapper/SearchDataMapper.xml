@@ -6,8 +6,8 @@
 <mapper namespace="cn.kidjoker.core.dao.SearchDataDao">
 
     <resultMap id="SearchDataMap" type="cn.kidjoker.core.model.SearchData">
-        <id column="id" property="id" javaType="long" />
-        <id column="coinType" property="coinType" javaType="string" />
+    	<id column="searchSeq" property="id" javaType="string" />
+        <result column="coinType" property="coinType" javaType="string" />
         <result column="high" property="high" javaType="string" />
         <result column="low" property="low" javaType="string" />
         <result column="last" property="last" javaType="string" />
@@ -65,7 +65,8 @@
     <insert id="insert" parameterType="cn.kidjoker.core.model.SearchData">
     <![CDATA[
         INSERT INTO Search_Data
-        ( 
+        (
+        	id,
             coinType,
             high, 
             low, 
@@ -76,6 +77,7 @@
             createTime
         )
         VALUES(
+        	#{searchSeq,jdbcType=VARCHAR},
             #{coinType,jdbcType=VARCHAR},
             #{high,jdbcType=VARCHAR},
             #{low,jdbcType=VARCHAR},
