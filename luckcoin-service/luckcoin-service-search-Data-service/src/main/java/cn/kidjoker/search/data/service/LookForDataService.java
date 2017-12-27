@@ -1,9 +1,6 @@
 package cn.kidjoker.search.data.service;
 
-import java.util.List;
 import java.util.Map;
-
-import cn.kidjoker.search.data.bo.SearchDataBo;
 
 /**
  *
@@ -14,5 +11,5 @@ import cn.kidjoker.search.data.bo.SearchDataBo;
  */
 public interface LookForDataService {
 	
-	public SearchDataBo searchData(String requestUrl, Map<String, String> params);
+	public <T> T searchData(String requestUrl, Map<String, String> params, Class<T> type);
 }

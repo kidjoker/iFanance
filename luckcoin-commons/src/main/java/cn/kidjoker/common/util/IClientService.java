@@ -11,5 +11,5 @@ import java.util.Map;
  */
 public interface IClientService {
 	
-	public  Map<String,String> sendAndReceive(Map<String,String> params,String requestUrl);
+	public  Map<String,String> sendAndReceive(String requestUrl, Map<String,String> params);
 }

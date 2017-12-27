@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import cn.kidjoker.common.util.IClientService;
 import cn.kidjoker.common.util.MapToBeanUtils;
-import cn.kidjoker.search.data.bo.SearchDataBo;
 import cn.kidjoker.search.data.service.LookForDataService;
 
 /**
@@ -22,19 +21,14 @@ import cn.kidjoker.search.data.service.LookForDataService;
 @Service
 public class LookForDataServiceImpl implements LookForDataService {
 
-	private Logger logger = LoggerFactory.getLogger(LookForDataServiceImpl.class);
-	
 	@Autowired
 	private IClientService iClientService;
 	
-	
-	@SuppressWarnings("unused")
 	@Override
-	public SearchDataBo searchData(String requestUrl, Map<String, String> params) {
+	public <T> T searchData(String requestUrl, Map<String, String> params, Class<T> type) {
 		
-		Map<String, String> retMap = iClientService.sendAndReceive(params, requestUrl);
-		
-		SearchDataBo rawData = MapToBeanUtils.toBean(SearchDataBo.class, retMap);
+		Map<String, String> retMap = iClientService.sendAndReceive(requestUrl, params);
+		T rawData = MapToBeanUtils.toBean(type, retMap);
 		
 		return rawData;
 	}

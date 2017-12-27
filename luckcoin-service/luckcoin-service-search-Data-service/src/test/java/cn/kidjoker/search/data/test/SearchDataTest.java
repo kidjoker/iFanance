@@ -45,7 +45,7 @@ public class SearchDataTest extends AbstractTest {
 			
 			param.put("symbol",coinTypes[i]);
 			
-			SearchDataBo resp = searchDataService.searchData(requestUrl, param);
+			SearchDataBo resp = searchDataService.searchData(requestUrl, param, SearchDataBo.class);
 			resp.setCoinType(coinTypes[i]);
 			
 			try {

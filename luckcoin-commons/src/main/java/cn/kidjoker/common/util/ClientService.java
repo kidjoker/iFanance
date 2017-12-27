@@ -19,7 +19,7 @@ public class ClientService implements IClientService {
 	private final Logger logger = LoggerFactory.getLogger(ClientService.class);
 
 	@Override
-	public Map<String, String> sendAndReceive(Map<String, String> params, String requestUrl) {
+	public Map<String, String> sendAndReceive(String requestUrl, Map<String, String> params) {
 		
 		String jsonStr = this.sendGet(params, requestUrl);
 		
