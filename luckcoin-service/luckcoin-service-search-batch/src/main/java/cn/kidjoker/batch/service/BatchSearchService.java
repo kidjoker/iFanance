@@ -26,5 +26,5 @@ package cn.kidjoker.batch.service;
  */
 public interface BatchSearchService {
 	
-	public <T> void execute() throws Exception;
+	public void execute() throws Exception;
 }

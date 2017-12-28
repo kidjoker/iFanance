@@ -19,9 +19,16 @@ package cn.kidjoker.batch.service.impl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
+import org.quartz.utils.StringKeyDirtyFlagMap;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+import cn.kidjoker.batch.service.isApiServiceUsable;
+import cn.kidjoker.batch.service.DTO.ApiDataContext;
+import cn.kidjoker.common.annotations.DataSource;
+import cn.kidjoker.common.annotations.ServiceName;
 import cn.kidjoker.search.data.bo.SearchDataBo.Ticker;
 
 /**
@@ -31,25 +38,27 @@ import cn.kidjoker.search.data.bo.SearchDataBo.Ticker;
  * @author jinzhijie
  * @creatTime 2017年12月27日 下午1:24:21
  */
-public class OkcoinTickerServiceImpl extends AbstractBatchSearchService {
+@Service
+@ServiceName(serviceName="/ticker.do")
+public class OkcoinTickerServiceImpl extends AbstractApiSearchService implements isApiServiceUsable {
 	
-	private String serviceName = "ticker.do";
+	@Override
+	protected Map<String, String> organizeRequestParam() {
+		return null;
+	}
+
+	@Override
+	protected ApiDataContext doSearchData(String requestUrl, Map<String, String> param) {
+		return null;
+	}
+
+	@Override
+	protected void save2DB(ApiDataContext Ddata) {
+	}
+
+	@Override
+	protected void save2CSV(ApiDataContext Ddata) throws IOException {
+	}
 	
-	@Override
-	protected String chooseService() {
-		return hostUrl + serviceName;
-	}
-
-	@Override
-	protected void doSearchData(String requestUrl, List<String> coinTypes) {
-	}
-
-	@Override
-	protected <T> void save2DB(T Ddata) {
-	}
-
-	@Override
-	protected <T> void save2CSV(T Ddata) throws IOException {
-	}
-
+	
 }

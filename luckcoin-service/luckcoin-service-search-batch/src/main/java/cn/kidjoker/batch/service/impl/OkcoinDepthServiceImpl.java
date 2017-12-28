@@ -19,6 +19,14 @@ package cn.kidjoker.batch.service.impl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import cn.kidjoker.batch.service.isApiServiceUsable;
+import cn.kidjoker.batch.service.DTO.ApiDataContext;
+import cn.kidjoker.common.annotations.DataSource;
+import cn.kidjoker.common.annotations.ServiceName;
 
 /**
  * <p>
@@ -27,23 +35,28 @@ import java.util.List;
  * @author jinzhijie
  * @creatTime 2017年12月27日 下午1:25:28
  */
-public class OkcoinDepthServiceImpl extends AbstractBatchSearchService {
+@Service
+@ServiceName(serviceName="/depth.do")
+public class OkcoinDepthServiceImpl extends AbstractApiSearchService implements isApiServiceUsable {
 
 	@Override
-	protected String chooseService() {
+	protected Map<String, String> organizeRequestParam() {
 		return null;
 	}
 
 	@Override
-	protected void doSearchData(String requestUrl, List<String> coinTypes) {
+	protected ApiDataContext doSearchData(String requestUrl, Map<String, String> param) {
+		return null;
 	}
 
 	@Override
-	protected <T> void save2DB(T Ddata) {
+	protected void save2DB(ApiDataContext Ddata) {
 	}
 
 	@Override
-	protected <T> void save2CSV(T Ddata) throws IOException {
+	protected void save2CSV(ApiDataContext Ddata) throws IOException {
 	}
+	
+	
 
 }

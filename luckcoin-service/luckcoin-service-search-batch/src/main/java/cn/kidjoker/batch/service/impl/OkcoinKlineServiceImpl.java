@@ -18,8 +18,15 @@
 package cn.kidjoker.batch.service.impl;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import cn.kidjoker.batch.service.isApiServiceUsable;
+import cn.kidjoker.batch.service.DTO.ApiDataContext;
+import cn.kidjoker.common.annotations.ServiceName;
 
 /**
  * <p>
@@ -28,23 +35,30 @@ import java.util.Map;
  * @author jinzhijie
  * @creatTime 2017年12月27日 下午1:27:04
  */
-public class OkcoinKlineServiceImpl extends AbstractBatchSearchService {
+@Service
+@ServiceName(serviceName="/kline.do")
+public class OkcoinKlineServiceImpl extends AbstractBatchSearchService implements isApiServiceUsable {
+	
+	@Override
+	protected Map<String, String> organizeRequestParam() {
+		Map<String, String> param = new HashMap<>();
+		
+		param.put("symbol", value)
+	}
 
 	@Override
-	protected String chooseService() {
+	protected ApiDataContext doSearchData(String requestUrl, Map<String, String> param) {
 		return null;
 	}
 
 	@Override
-	protected void doSearchData(String requestUrl, List<String> coinTypes) {
+	protected void save2DB(ApiDataContext Ddata) {
 	}
 
 	@Override
-	protected <T> void save2DB(T Ddata) {
+	protected void save2CSV(ApiDataContext Ddata) throws IOException {
 	}
 
-	@Override
-	protected <T> void save2CSV(T Ddata) throws IOException {
-	}
+	
 
 }

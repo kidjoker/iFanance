@@ -14,7 +14,7 @@
         <property name="locations">
             <list>
                 <value>classpath:META-INF/config/jdbc.properties</value>
-                <value>classpath:META-INF/config/okcoinConfig.properties</value>
+                <value>classpath:META-INF/config/apiConfig.properties</value>
             </list>
         </property>  
     </bean>
