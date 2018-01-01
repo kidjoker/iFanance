@@ -1,4 +1,4 @@
-package cm.kidjoker.batch.processor.builder;
+package cn.kidjoker.batch.processor.builder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ import cn.kidjoker.common.annotations.ServiceName;
  * @since 2017年12月29日 - 上午12:24:45
  * @version 1.0.0
  */
-@Service
+@Service("CoinDataSearchBatchJob")
 public class ApiServiceProcessorBuilder implements BeanPostProcessor,BatchSearchService {
 	
 	private Map<String, AbstractApiSearchService> apiServiceContainer = new HashMap<>();
@@ -27,7 +27,7 @@ public class ApiServiceProcessorBuilder implements BeanPostProcessor,BatchSearch
 	@Override
 	public void execute() throws Exception {
 		for(AbstractApiSearchService apiService : apiServiceContainer.values()) {
-			//apiService.
+			apiService.execute();
 		}
 	}
 	

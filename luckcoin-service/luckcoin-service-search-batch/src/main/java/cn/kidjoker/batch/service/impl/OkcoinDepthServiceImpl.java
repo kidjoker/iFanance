@@ -18,6 +18,7 @@
 package cn.kidjoker.batch.service.impl;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
 
 import cn.kidjoker.batch.service.isApiServiceUsable;
 import cn.kidjoker.batch.service.DTO.ApiDataContext;
-import cn.kidjoker.common.annotations.DataSource;
+import cn.kidjoker.common.annotations.HostName;
 import cn.kidjoker.common.annotations.ServiceName;
 
 /**
@@ -36,16 +37,18 @@ import cn.kidjoker.common.annotations.ServiceName;
  * @creatTime 2017年12月27日 下午1:25:28
  */
 @Service
+@HostName(hostName="okcoin")
 @ServiceName(serviceName="/depth.do")
 public class OkcoinDepthServiceImpl extends AbstractApiSearchService implements isApiServiceUsable {
-
+	
 	@Override
-	protected Map<String, String> organizeRequestParam() {
-		return null;
+	protected Map<String, List<String>> organizeRequestParam() {
+		
+		return param;
 	}
-
+	
 	@Override
-	protected ApiDataContext doSearchData(String requestUrl, Map<String, String> param) {
+	protected ApiDataContext doSearchData(String requestUrl, Map<String, List<String>> param) {
 		return null;
 	}
 
@@ -56,7 +59,5 @@ public class OkcoinDepthServiceImpl extends AbstractApiSearchService implements 
 	@Override
 	protected void save2CSV(ApiDataContext Ddata) throws IOException {
 	}
-	
-	
 
 }

@@ -21,15 +21,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import org.quartz.utils.StringKeyDirtyFlagMap;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import cn.kidjoker.batch.service.isApiServiceUsable;
 import cn.kidjoker.batch.service.DTO.ApiDataContext;
-import cn.kidjoker.common.annotations.DataSource;
+import cn.kidjoker.common.annotations.HostName;
 import cn.kidjoker.common.annotations.ServiceName;
-import cn.kidjoker.search.data.bo.SearchDataBo.Ticker;
 
 /**
  * <p>
@@ -39,16 +36,18 @@ import cn.kidjoker.search.data.bo.SearchDataBo.Ticker;
  * @creatTime 2017年12月27日 下午1:24:21
  */
 @Service
+@HostName(hostName="okcoin")
 @ServiceName(serviceName="/ticker.do")
 public class OkcoinTickerServiceImpl extends AbstractApiSearchService implements isApiServiceUsable {
 	
 	@Override
-	protected Map<String, String> organizeRequestParam() {
-		return null;
-	}
+	protected Map<String, List<String>> organizeRequestParam() {
 
+		return param;
+	}
+	
 	@Override
-	protected ApiDataContext doSearchData(String requestUrl, Map<String, String> param) {
+	protected ApiDataContext doSearchData(String requestUrl, Map<String, List<String>> param) {
 		return null;
 	}
 

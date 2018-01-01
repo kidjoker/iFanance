@@ -4,21 +4,21 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
     
     <!-- 交易核心数据统计 -->
-    <bean id="LuckcoinSearchBatchJobScheduler"
+    <bean id="CoinDataSearchBatchJobScheduler"
         class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
-        p:targetObject-ref="LuckcoinSearchBatchJob" p:targetMethod="execute" />
+        p:targetObject-ref="CoinDataSearchBatchJob" p:targetMethod="execute" />
 
-    <bean id="LuckcoinSearchBatchJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail" ref="LuckcoinSearchBatchJobScheduler" />
+    <bean id="CoinDataSearchBatchJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="CoinDataSearchBatchJobScheduler" />
         <property name="cronExpression"
-            value="${LuckcoinSearchBatchJob.cornExpression:0/30 * * * * ?}" />
+            value="${CoinDataSearchBatchJob.cornExpression:0/30 * * * * ?}" />
     </bean>
 
     <bean id="SchedulerFactory"
         class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                <ref bean="LuckcoinSearchBatchJobTrigger" />
+                <ref bean="CoinDataSearchBatchJobTrigger" />
             </list>
         </property>
     </bean>
