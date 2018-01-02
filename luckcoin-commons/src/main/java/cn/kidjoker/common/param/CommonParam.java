@@ -10,4 +10,6 @@ package cn.kidjoker.common.param;
 public class CommonParam {
 	
 	public static final String PATTERN = ",";  //properties字符串数字的默认间隔符
+	
+	public static final String CHARSET = "UTF-8";  //默认字符编码
 }

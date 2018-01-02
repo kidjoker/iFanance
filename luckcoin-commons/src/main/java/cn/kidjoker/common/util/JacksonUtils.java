@@ -10,6 +10,8 @@ import org.codehaus.jackson.type.JavaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.kidjoker.common.param.CommonParam;
+
 /**
  * jackson工具类
  *
@@ -22,7 +24,6 @@ public class JacksonUtils {
 	private static Logger logger = LoggerFactory.getLogger(JacksonUtils.class);
 	
 	public static final ObjectMapper jsonMapper = new ObjectMapper();
-	private final static String CHARSET = "UTF-8";
 	
 	public static ObjectMapper getInstance() {
 		return jsonMapper;
@@ -66,7 +67,7 @@ public class JacksonUtils {
 		getInstance().setDateFormat(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"));
 		
 		try {
-			return getInstance().readValue(jsonStr.getBytes(CHARSET),valueType);
+			return getInstance().readValue(jsonStr.getBytes(CommonParam.CHARSET),valueType);
 		}catch (IOException e) {
 			logger.error("json串转换对象失败:[{}]",jsonStr);
 			e.printStackTrace();

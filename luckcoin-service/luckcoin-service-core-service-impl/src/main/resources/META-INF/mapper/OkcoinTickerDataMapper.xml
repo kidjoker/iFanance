@@ -3,18 +3,10 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.kidjoker.core.dao.SearchDataDao">
+<mapper namespace="cn.kidjoker.core.dao.OkcoinTickerDao">
 
-    <resultMap id="SearchDataMap" type="cn.kidjoker.core.model.SearchData">
+    <resultMap id="OkcoinTickerDataMap" type="cn.kidjoker.core.model.OkcoinTickerData">
     	<id column="searchSeq" property="id" javaType="string" />
-        <result column="coinType" property="coinType" javaType="string" />
-        <result column="high" property="high" javaType="string" />
-        <result column="low" property="low" javaType="string" />
-        <result column="last" property="last" javaType="string" />
-        <result column="vol" property="vol" javaType="string" />
-        <result column="buy" property="buy" javaType="string" />
-        <result column="sell" property="sell" javaType="string" />
-        <result column="createTime" property="createTime" javaType="Date" />
     </resultMap>
 
     <sql id="selectColumns">
@@ -62,7 +54,7 @@
         WHERE A.id = #{id,javaType=long}
     </select>
 
-    <insert id="insert" parameterType="cn.kidjoker.core.model.SearchData">
+    <insert id="insert" parameterType="cn.kidjoker.core.model.OkcoinTickerData">
     <![CDATA[
         INSERT INTO Search_Data
         (

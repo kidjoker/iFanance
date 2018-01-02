@@ -26,7 +26,7 @@ import cn.kidjoker.common.model.BaseModelAdapter;
  * @author jinzhijie
  * @creatTime 2017年12月26日 上午11:36:23
  */
-public class SearchData extends BaseModelAdapter<String> {
+public class OkcoinTickerData extends BaseModelAdapter<String> {
 	
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

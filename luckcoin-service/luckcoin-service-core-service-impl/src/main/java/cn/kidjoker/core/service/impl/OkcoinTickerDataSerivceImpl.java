@@ -21,9 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.kidjoker.common.service.impl.MybatisBaseServiceImpl;
-import cn.kidjoker.core.dao.SearchDataDao;
-import cn.kidjoker.core.model.SearchData;
-import cn.kidjoker.core.service.SearchDataService;
+import cn.kidjoker.core.dao.OkcoinTickerDao;
+import cn.kidjoker.core.model.OkcoinTickerData;
+import cn.kidjoker.core.service.OkcoinTickerDataService;
 
 /**
  * <p>
@@ -33,13 +33,13 @@ import cn.kidjoker.core.service.SearchDataService;
  * @creatTime 2017年12月26日 上午11:40:04
  */
 @Service
-public class SearchDataSerivceImpl extends MybatisBaseServiceImpl<SearchData, String, SearchDataDao> implements SearchDataService {
+public class OkcoinTickerDataSerivceImpl extends MybatisBaseServiceImpl<OkcoinTickerData, String, OkcoinTickerDao> implements OkcoinTickerDataService {
 
 	@Autowired
-	private SearchDataDao baseDao;
+	private OkcoinTickerDao baseDao;
 	
 	@Override
-	public SearchDataDao getBaseDao() {
+	public OkcoinTickerDao getBaseDao() {
 		return this.baseDao;
 	}
 

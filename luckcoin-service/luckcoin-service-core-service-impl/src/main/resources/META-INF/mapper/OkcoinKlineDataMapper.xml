@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kidjoker.core.dao.OkcoinKlineDao">
+
+    <resultMap id="OkcoinKlineDataMap" type="cn.kidjoker.core.model.OkcoinKlineData">
+    	<id column="searchSeq" property="id" javaType="string" />
+    </resultMap>
+
+    <sql id="selectColumns">
+        A.coinType, A.high, A.low, A.last, A.vol, A.buy,A.sell, A.createTime
+    </sql>
+
+    <sql id="selectWhere">
+        <where>
+            <if test="last != null and last != ''">
+                AND A.last = #{last, jdbcType=VARCHAR}
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="pageLimit">
+        <if test="start !=null and limit != null">
+            LIMIT #{start},#{limit}
+        </if>
+    </sql>
+    
+    <select id="selectList" resultMap="SearchDataMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Search_Data A
+        <include refid="selectWhere" />
+        <include refid="pageLimit" />
+    </select>
+    
+    <select id="selectCount" resultType="Integer" parameterType="HashMap">
+        SELECT COUNT(A.id) FROM Search_Data A
+        <include refid="selectWhere" />
+    </select>
+
+    <select id="selectOne" resultMap="SearchDataMap" parameterType="HashMap">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Search_Data A
+        <include refid="selectWhere" />
+    </select>
+    
+    <select id="selectById"  resultMap="SearchDataMap" parameterType="string">
+        SELECT
+        <include refid="selectColumns" />
+        FROM Search_Data A
+        WHERE A.id = #{id,javaType=long}
+    </select>
+
+    <insert id="insert" parameterType="cn.kidjoker.core.model.OkcoinKlineData">
+    <![CDATA[
+        INSERT INTO Search_Data
+        (
+        	id,
+            coinType,
+            high, 
+            low, 
+            last, 
+            vol, 
+            buy,
+            sell, 
+            createTime
+        )
+        VALUES(
+        	#{searchSeq,jdbcType=VARCHAR},
+            #{coinType,jdbcType=VARCHAR},
+            #{high,jdbcType=VARCHAR},
+            #{low,jdbcType=VARCHAR},
+            #{last,jdbcType=VARCHAR},
+            #{vol,jdbcType=VARCHAR},
+            #{buy,jdbcType=VARCHAR},
+            #{sell,jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP
+        )
+    ]]>
+    </insert>
+</mapper>

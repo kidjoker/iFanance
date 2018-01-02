@@ -13,20 +13,20 @@
  *
  * ================================================================
  *  创建人: jinzhijie
- *	创建时间: 2017年12月26日 上午11:38:20
+ *	创建时间: 2017年12月26日 上午11:40:41
  */
-package cn.kidjoker.core.service;
+package cn.kidjoker.core.dao;
 
-import cn.kidjoker.common.service.IBaseService;
-import cn.kidjoker.core.model.SearchData;
+import cn.kidjoker.common.dao.IMybatisBaseDao;
+import cn.kidjoker.core.model.OkcoinTickerData;
 
 /**
  * <p>
  * 
  * </P>
  * @author jinzhijie
- * @creatTime 2017年12月26日 上午11:38:20
+ * @creatTime 2017年12月26日 上午11:40:41
  */
-public interface SearchDataService extends IBaseService<SearchData, String> {
+public interface OkcoinTickerDao extends IMybatisBaseDao<OkcoinTickerData, String> {
 
 }

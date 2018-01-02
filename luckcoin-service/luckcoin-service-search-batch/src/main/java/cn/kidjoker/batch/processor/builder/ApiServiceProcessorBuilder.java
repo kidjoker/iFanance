@@ -27,7 +27,7 @@ public class ApiServiceProcessorBuilder implements BeanPostProcessor,BatchSearch
 	@Override
 	public void execute() throws Exception {
 		for(AbstractApiSearchService apiService : apiServiceContainer.values()) {
-			apiService.execute();
+			apiService.searchData();
 		}
 	}
 	

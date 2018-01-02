@@ -38,8 +38,20 @@
         <property name="mapperInterface" value="cn.kidjoker.core.dao.WalletHistoryDao" />
     </bean>
     
-    <bean id="SearchDataDao" parent="baseDaoMapper">
-        <property name="mapperInterface" value="cn.kidjoker.core.dao.SearchDataDao" />
+    <bean id="OkcoinTickerDao" parent="baseDaoMapper">
+        <property name="mapperInterface" value="cn.kidjoker.core.dao.OkcoinTickerDao" />
+    </bean>
+    
+    <bean id="OkcoinTradeDao" parent="baseDaoMapper">
+        <property name="mapperInterface" value="cn.kidjoker.core.dao.OkcoinTradeDao" />
+    </bean>
+    
+    <bean id="OkcoinDepthDao" parent="baseDaoMapper">
+        <property name="mapperInterface" value="cn.kidjoker.core.dao.OkcoinDepthDao" />
+    </bean>
+    
+    <bean id="OkcoinKlineDao" parent="baseDaoMapper">
+        <property name="mapperInterface" value="cn.kidjoker.core.dao.OkcoinKlineDao" />
     </bean>
     
 </beans>

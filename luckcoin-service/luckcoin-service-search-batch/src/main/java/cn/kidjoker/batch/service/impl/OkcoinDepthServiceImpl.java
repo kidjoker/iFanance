@@ -18,8 +18,6 @@
 package cn.kidjoker.batch.service.impl;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -28,6 +26,7 @@ import cn.kidjoker.batch.service.isApiServiceUsable;
 import cn.kidjoker.batch.service.DTO.ApiDataContext;
 import cn.kidjoker.common.annotations.HostName;
 import cn.kidjoker.common.annotations.ServiceName;
+import cn.kidjoker.common.param.CommonParam;
 
 /**
  * <p>
@@ -42,14 +41,21 @@ import cn.kidjoker.common.annotations.ServiceName;
 public class OkcoinDepthServiceImpl extends AbstractApiSearchService implements isApiServiceUsable {
 	
 	@Override
-	protected Map<String, List<String>> organizeRequestParam() {
-		
-		return param;
+	protected Map<String, String> organizeRequestParam() {
+		return super.organizeRequestParam();
 	}
 	
+	@SuppressWarnings("unused")
 	@Override
-	protected ApiDataContext doSearchData(String requestUrl, Map<String, List<String>> param) {
-		return null;
+	protected void doSearchData(String requestUrl, Map<String, String> reqMap) {
+		
+		String coinTypeStr = reqMap.get("symbol");
+		String[] coinTypes = coinTypeStr.split(CommonParam.PATTERN);
+		
+		for(String coinType : coinTypes) {
+			reqMap.put("symbol", coinType);
+			Map<String, String> retMap = httpClient.sendAndReceive(requestUrl, reqMap);
+		}
 	}
 
 	@Override

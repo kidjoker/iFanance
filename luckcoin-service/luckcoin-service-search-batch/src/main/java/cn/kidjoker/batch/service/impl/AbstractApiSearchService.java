@@ -18,21 +18,21 @@
 package cn.kidjoker.batch.service.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
 import cn.kidjoker.batch.service.DTO.ApiDataContext;
 import cn.kidjoker.common.annotations.HostName;
 import cn.kidjoker.common.annotations.ServiceName;
 import cn.kidjoker.common.param.CommonParam;
+import cn.kidjoker.common.util.IClientService;
+import cn.kidjoker.common.util.KidPropertiesConfigurer;
 
 /**
  * <p>
@@ -49,10 +49,13 @@ public abstract class AbstractApiSearchService {
 	@Value("${api.host.url}")
 	private String hostUrls;
 	
-	@Value("${api.coinType.name}")
-	private String cointypes;
+	@Autowired
+	protected KidPropertiesConfigurer propertiesUtil;
 	
-	public void execute() throws Exception {
+	@Autowired
+	protected IClientService httpClient;
+	
+	public void searchData() throws Exception {
 		
 		//选择对应api网址
 		String hostUrl = chooseHost();
@@ -61,7 +64,7 @@ public abstract class AbstractApiSearchService {
 		String requestUrl =chooseServiceName(hostUrl);
 		
 		//组织请求参数
-		Map<String, List<String>> param = organizeRequestParam();
+		Map<String, String> param = organizeRequestParam();
 		
 		//进行api调用抓取数据
 		ApiDataContext data = doSearchData(requestUrl, param);
@@ -89,11 +92,18 @@ public abstract class AbstractApiSearchService {
 		return hostUrl + this.getClass().getAnnotation(ServiceName.class).serviceName();
 	}
 	
-	protected Map<String, List<String>> organizeRequestParam() {
-		Object properties = 
+	protected Map<String, String> organizeRequestParam() {
+		
+		String CoinType = "api.coinType." + this.getClass().getAnnotation(HostName.class).hostName() + ".name";
+		
+		String coinTypeStr = (String) propertiesUtil.getContextProperty(CoinType);
+		
+		Map<String, String> reqMap = new HashMap<>();
+		reqMap.put("symbol", coinTypeStr);
+		return reqMap;
 	}
 	
-	protected abstract ApiDataContext doSearchData(String requestUrl, Map<String, List<String>> param);
+	protected abstract void doSearchData(String requestUrl, Map<String, String> param);
 	
 	protected abstract void save2DB(ApiDataContext Ddata);
 	

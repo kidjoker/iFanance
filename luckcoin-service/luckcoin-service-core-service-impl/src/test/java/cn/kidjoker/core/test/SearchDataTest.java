@@ -23,8 +23,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.kidjoker.common.test.AbstractTest;
-import cn.kidjoker.core.model.SearchData;
-import cn.kidjoker.core.service.SearchDataService;
+import cn.kidjoker.core.model.OkcoinTickerData;
+import cn.kidjoker.core.service.OkcoinTickerDataService;
 
 /**
  * <p>
@@ -38,11 +38,11 @@ public class SearchDataTest extends AbstractTest {
 private Logger logger = LoggerFactory.getLogger(SearchDataTest.class);
 	
 	@Autowired
-	private SearchDataService searchDataService;
+	private OkcoinTickerDataService searchDataService;
 	
 	@Test
 	public void testAdd() {
-		SearchData searchData = new SearchData();
+		OkcoinTickerData searchData = new OkcoinTickerData();
 		searchData.setCoinType("btc");
 		searchData.setHigh("12121");
 		searchData.setLow("123312");

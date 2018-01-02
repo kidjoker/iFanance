@@ -22,6 +22,7 @@ public class ClientService implements IClientService {
 	public Map<String, String> sendAndReceive(String requestUrl, Map<String, String> params) {
 		
 		String jsonStr = this.sendGet(params, requestUrl);
+		jsonStr = clearStrArrayPrefixandSuffix(jsonStr);
 		
 		@SuppressWarnings("unchecked")
 		Map<String, String> retMap = JacksonUtils.getObjectFromJsonStr(jsonStr, Map.class);
@@ -53,6 +54,13 @@ public class ClientService implements IClientService {
 		}
 		logger.info("内部系统请求结束,响应参数为:->{};请求接口->[{}]", new Object[] { jsonStr, requestUrl });
 		return jsonStr;
+	}
+	
+	private static String clearStrArrayPrefixandSuffix(String str) {
+		if(str.contains("[") || str.contains("]")) {
+			str = str.substring(1, str.length() -1 );
+		}
+		return str;
 	}
 
 }
